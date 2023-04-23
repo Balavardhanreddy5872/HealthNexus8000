@@ -1,47 +1,56 @@
+<!-- This is an HTML file that displays medicine details. It has a navigation bar and a table that displays medicine information. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Set character encoding and compatibility -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Set viewport for mobile responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Set title and import stylesheet -->
     <title>User details</title>
     <link href="/css/portal.css" rel="stylesheet"/>
+    <!-- Define styles -->
+    /* This block of code contains the styling for the HTML page */
+
     <style>
+      /* This styles the heading */
       h1{
         text-align: center;
       }
+      /* This applies box-sizing, margin and padding properties to all elements */
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
-      
+      /* This styles the body of the page */
       body {
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
+        font-family: Arial, sans-serif; /* Specifies the font family for the body */
+        font-size: 16px; /* Specifies the font size for the body */
+        line-height: 1.5; /* Specifies the line height for the body */
       }
-      
+      /* This sets the maximum width for the container and applies margin and padding properties */
       .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
       }
-      
+      /* This styles the table and sets its width to 100% */
       table {
         width: 100%;
-    
       }
-      
+      /* This styles the table cells and sets a border, padding and text alignment */
       th, td {
         border: 1px solid #ddd;
         padding: 10px;
         text-align: left;
       }
-      
+      /* This styles the table headers and sets a background color */
       th {
         background-color: #f2f2f2;
       }
+      /* This styles the delete button and sets a background color and padding */
       button{
         padding: 3px 50px; 
         background-color: aqua;
@@ -62,42 +71,54 @@
   <h1>Medicine Details</h1>
   <br>
   <br>
-  <table border="5" style="height: 30vh">
-    <thead style="height: 20vh;">
-      <tr style="background-color: aqua;">
-        <th style="width: 100px;">MedicineName</th>
-        <th style="width: 100px;">MedicinePrice</th>
-        <th style="width: 100px;">OrginalPrice</th>
-        <th style="width: 100px;">delete</th>
-        <th style="width: 100px;">Company</th>
-        
+<!-- This is a table that displays medicine information -->
+<table border="5" style="height: 30vh">
+  <!-- This is the table header -->
+  <thead style="height: 20vh;">
+    <!-- This is the table header row -->
+    <tr style="background-color: aqua;">
+      <!-- These are the table header columns -->
+      <th style="width: 100px;">MedicineName</th>
+      <th style="width: 100px;">MedicinePrice</th>
+      <th style="width: 100px;">OrginalPrice</th>
+      <th style="width: 100px;">delete</th>
+      <th style="width: 100px;">Company</th>
+    </tr>
+  </thead>
+  <!-- This is the table body -->
+  <tbody>
+    <!-- This is a loop that iterates through each medicine object in the x array -->
+    <% x.forEach((y)=>{%> 
+    <!-- This is a form for deleting a medicine -->
+    <form action="/deletemedicine" method="post"> 
+      <!-- This is the table row -->
+      <tr>
+        <!-- This is a hidden input field for the medicine name -->
+        <input type="hidden" name="name" value="<%=y.name%>">
+        <!-- This is a table data cell that displays the medicine name -->
+        <td style="text-align: center;"><%=y.name%></td>
+        <!-- This is a hidden input field for the medicine price1 -->
+        <input type="hidden" name="price1" value="<%=y.price2%>">
+        <!-- This is a table data cell that displays the medicine price1 -->
+        <td style="text-align: center;"><%=y.price1%></td>
+        <!-- This is a hidden input field for the medicine price2 -->
+        <input type="hidden" name="price2" value="><%=y.price2%>">
+        <!-- This is a table data cell that displays the medicine price2 -->
+        <td style="text-align: center;"><%=y.price2%></td>
+        <!-- This is a table data cell that contains a delete button -->
+        <td>
+          <button type="submit">delete</button>
+        </td>
+        <!-- This is a table data cell that displays the medicine company -->
+        <td>
+          HealthNexus
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <% x.forEach((y)=>{%> 
-      <form action="/deletemedicine" method="post"> 
-        <tr>
-          <input type="hidden" name="name" value="<%=y.name%>">
-          <td style="text-align: center;"><%=y.name%></td>
-          <input type="hidden" name="price1" value="<%=y.price2%>">
-          <td style="text-align: center;"><%=y.price1%></td>
-          <input type="hidden" name="price2" value="><%=y.price2%>">
-          <td style="text-align: center;"><%=y.price2%></td>
-        
-          <td>
-            <button type="submit">delete</button>
-          </td>
-         
-          <td>
-        
-                HealthNexus
-           
-          </td>
-        </tr>
-      </form>
-      <% }) %>
-    </tbody>
-  </table>
+    </form>
+    <!-- This is the end of the loop -->
+    <% }) %>
+  </tbody>
+</table>
 </div>
 </body>
 </html>

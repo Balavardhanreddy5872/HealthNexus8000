@@ -1,6 +1,6 @@
+<!-- This is an HTML document containing various links to external stylesheets and scripts -->
 <!DOCTYPE html>
 <html>
-
 <head>
   <!-- Basic -->
   <meta charset="utf-8" />
@@ -11,81 +11,91 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-
+  <!-- Title and Favicon -->
   <title>HealthNexus</title>
   <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg">
-  <!-- slider stylesheet -->
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
-
-  <!-- font awesome style -->
+  <!-- Owl Carousel stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+  <!-- Font Awesome stylesheet -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-  <!-- bootstrap core css -->
+  <!-- Bootstrap core CSS -->
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-
-  <!-- fonts style -->
+  <!-- Fonts stylesheet -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700|Roboto:400,700&display=swap" rel="stylesheet">
   <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-
-
   <!-- Custom styles for this template -->
   <link href="/css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
+  <!-- Responsive style -->
   <link href="/css/responsive.css" rel="stylesheet" />
+  <!-- Medicine style -->
   <link href="/css/medicine.css" rel="stylesheet" />
 </head>
-
-
-    <!-- end header section -->
 <body>
+  <div class="hero_area">
+    <!-- Navigation bar -->
+    <%- include('./partials/navbar3.ejs') %>
+<!-- The code is a web page that displays a list of medicines for sale. -->
+<div id="MedPage">
+  <div id="info">
+    <!-- A section with a header and a sub-header that describes the functionality of the page. -->
+    <p class="cat">Find Your Prescription Medicines</p>
+    <h1 class="h4">Shop by Drug Category</h1>
+    <br>
+    <!-- A table with links to different drug categories. -->
+    <table>
+      <thead>
+        <tr>
+          <td><a href="#A">A</a></td> 
+          <td><a href="#B">B</a></td> 
+          <td><a href="#C">C</a></td> 
+          <td><a href="#D">D</a></td> 
+          <td><a href="#E">E</a></td>
+          <td><a href="#F">F</a></td>
+          <td><a href="#G">G</a></td>
+          <td><a href="#H">H</a></td>
+          <td><a href="#I">I</a></td>
+          <td><a href="#K">K</a></td>
+          <td><a href="#L">L</a></td> 
+          <td><a href="#M">M</a></td> 
+          <td><a href="#N">N</a></td> 
+          <td><a href="#O">O</a></td> 
+          <td><a href="#P">P</a></td>
+          <td><a href="#R">R</a></td>
+          <td><a href="#S">S</a></td> 
+          <td><a href="#U">U</a></td> 
+          <td><a href="#V">V</a></td> 
+          <td><a href="#W">W</a></td>
+          <td><a href="#W">X</a></td>
+          <td><a href="#W">Y</a></td>
+          <td><a href="#W">Z</a></td>
+          <td id="all">ALL</td>
+        </tr>
+      </thead>
+    </table>
   </div>
 
-  <!-- health section -->
+  <!-- A section that displays medicine images and information sorted alphabetically. -->
+  <h2 class="product-category">Alphabetical Order</h2>
+  <% for(let i=0;i<list.length;i++) { %> 
+  <section class="product"> 
+    <!-- A sub-header that displays the current alphabet being displayed. -->
+    <h2 class="product-category left-alp" id="<%=String.fromCharCode('A'.charCodeAt(0)+i)%>"><%=String.fromCharCode('A'.charCodeAt(0)+i)%></h2>
+    <!-- Buttons to navigate to the previous and next alphabet. -->
+    <button class="pre-btn"><img src="images/arrow.png" alt=""></button>
+    <button class="nxt-btn"><img src="images/arrow.png" alt=""></button>
 
-  <div class="hero_area">
-    <%- include('./partials/navbar3.ejs') %>
-    <!-- header section strats -->
-    <!---Med head-->
-
-    <div id="MedPage">
-      <div id="info">
-        <p class="cat">Find Your Prescription Medicines</p>
-          <h1 class="h4">Shop by Drug Category</h1>
-          <br>
-          <table>
-           <thead>
-              <tr>
-                  <td><a href="#A">A</a></td> <td><a href="#B">B</a></td> <td><a href="#C">C</a></td> 
-                  <td><a href="#D">D</a></td> 
-                  <td><a href="#E">E</a></td><td><a href="#F">F</a></td><td><a href="#G">G</a></td><td><a href="#H">H</a></td><td><a href="#I">I</a></td>
-                  <td><a href="#K">K</a></td><td><a href="#L">L</a></td> <td><a href="#M">M</a></td> <td><a href="#N">N</a></td> <td><a href="#O">O</a></td> <td><a href="#P">P</a></td><td><a href="#R">R</a></td>
-                  <td><a href="#S">S</a></td> <td><a href="#U">U</a></td> <td><a href="#V">V</a></td> <td><a href="#W">W</a></td><td id="all">ALL</td>
-              </tr>
-          </thead>
-       </table>
-       </div>
-<!---Med head end-->
-
-    <!-- image section -->
-    <h2 class="product-category">Alphabetical Order</h2>
-    <% for(let i=0;i<list.length;i++) { %> 
-    <section class="product"> 
-      <h2 class="product-category left-alp" id="<%=String.fromCharCode('A'.charCodeAt(0)+i)%>"><%=String.fromCharCode('A'.charCodeAt(0)+i)%></h2>
-      <button class="pre-btn"><img src="images/arrow.png" alt=""></button>
-      <button class="nxt-btn"><img src="images/arrow.png" alt=""></button>
-
-    
-      <div class="product-container">
-      <%  for(let j=0;j<list[i].length;j++) { %>
-      <form action="/cart" method="get">
-        <div class="product-card">
-          <div class="product-image">
-            <span class="discount-tag">50% off</span>
-            <img src="<%= list[i][j].image %>" class="product-thumb" alt="">
-          </div>
-          <div class="product-info">
+    <!-- A container for the medicine images and information. -->
+    <div class="product-container">
+    <%  for(let j=0;j<list[i].length;j++) { %>
+    <!-- A form to add the medicine to the shopping cart. -->
+    <form action="/cart" method="get">
+      <!-- A card displaying the medicine image, name, price, and discount. -->
+      <div class="product-card">
+        <div class="product-image">
+          <span class="discount-tag">50% off</span>
+          <img src="<%= list[i][j].image %>" class="product-thumb" alt="">
+        </div>
+        <div class="product-info">
             <h2 class="product-brand"><input type="hidden" name="name" value="<%= list[i][j].name %>"><%=  list[i][j].name %></h2>
             <!-- <p class="product-short-description">Atrest 12.5mg Tablet 10'S</p> -->
             <input type="hidden" name="price" value="<%= list[i][j].price1 %>">
