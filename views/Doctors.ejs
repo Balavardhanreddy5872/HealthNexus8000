@@ -46,7 +46,7 @@
 <div class="doctor-container">
      <img src="/images/carousel.jpg" alt="">
      <div class="timings-appoinment">
-    <h1 style="color: rgba(0, 225, 225, 1);padding-bottom: 15px;">Business Hours</h1>    
+    <h1 style="color: rgba(0, 225, 225, 1);padding-bottom: 15px;">Business Hours</h1> 
     <h3>OPENING DAYS</h3>
           <p>Monday - Friday: 9am to 10pm</p>
           <p>Saturday: 9am to 7pm</p>
@@ -57,7 +57,7 @@
        <h2 style="border-top: 2px solid white;padding-top: 10px;">For Emergency cases</h2>
        <p><b>(+01) 123 456 7890</b></p>   
       
-   </div>
+   </div> 
    
    
 
@@ -65,36 +65,63 @@
    <div class="appointment">
     <h4>Booking Appointment</h4>
     <h2>Free Consultation</h2>
+
+
     <form method="post" action="/doctor">
+
     <div class="option-class">
+
        <label for="doctors"></label>
-         <select name="doct" id="doctors1">
-          <option name="doct" selected>Select Issue</option>
-          <option name="doct">Dental care</option>
-          <option name="doct">Heart Diseases</option>
-          <option name="doct">Lung problems</option>
-          <option name="doct">Brain problems</option>
+
+         <select name="doct" id="doctors1" required>
+          <option name="doct5" selected hidden disabled>Select Issue</option>
+          <option name="doct1">Orthopedics</option>
+          <option name="doct2">Obstetrics and Gynecology</option>
+          <option name="doct3">Dermatology</option>
+          <option name="doct4">Pediatrics</option>
+          <option name="doct4">Radiology</option>
          </select>
-      <label for="doctors"></label>
-      <select name="doctors1" id="doctors2">
+
+      <!-- <label for="doctors"></label>
+
+      <select name="doctors1" id="doctors2" required>
         <option name="doctors1" selected>Select Doctor</option>
         <option name="doctors1">Dr.M S Pushkala</option>
         <option name="doctors1">Dr.R Kaladevi</option>
         <option name="doctors1">Dr.M Banu Priya</option>
         <option name="doctors1">Dr.Vishal Rao</option>
-      </select>
-      </div>
-    
-    <div class="input-names">
-      <input type="text" placeholder="Your Name" name="name">
-      <input class="maill" type="email" placeholder="Your Email" name="mail">
+      </select> -->
+
+      
+    <input type="text" placeholder="Your Name" name="name" pattern="[A-Za-z]+" required>
+
+<br>
+   
+
+      <input type="tel" placeholder="Phone Number" name="doctors1" pattern="[6-9][0-9]{9}" required>
+
+      <input class="maill" type="email" placeholder="Your Email" name="mail" required>
+
+    <br>
+
+
+
+   
+       <input type="date" class="Appointment-Date" placeholder="Appointment Date" name="date" required>
+
+      <input type="time" class="Appointment-Time" placeholder="Appointment Time" name="time" required>
+
     </div>
 
-    <div class="appointment-duration">
-      <input type="date" class="Appointment-Date" placeholder="Appointment Date" name="date">
-    </div>
    <input class="appointment-button" type="submit">
+
+
+
+
+
   </form>
+
+  
 </div>
 
    </div>
@@ -103,6 +130,18 @@
 
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 <%- include('./partials/footer.ejs') %>
 
   <!-- end info section -->
@@ -120,6 +159,9 @@
   <script type="text/javascript" src="js/bootstrap.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
   </script>
+
+
+
 
 </body>
 

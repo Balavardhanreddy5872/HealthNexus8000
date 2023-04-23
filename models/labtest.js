@@ -4,8 +4,8 @@ const { Int32 } = require('mongodb');
 const mongoose = require('mongoose')
 
 const labtests = new mongoose.Schema({
-    name:{type: String},
-    number:{type: String},
+    doct:{type: String},
+    doctors1:{type: String},
     formfill3:{type:String},
     package:{type:String},
     test:{type: String}

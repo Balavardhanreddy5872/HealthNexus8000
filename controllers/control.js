@@ -5,7 +5,7 @@ const port = 8000;
 const mongoose = require('mongoose')
 const alert = require('alert')
 
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -50,6 +50,7 @@ exports.getlogin = (req, res) => {
 };
 exports.gethomeuser = (req, res) => {
     res.render('homeuser')
+   
 };
 exports.getabout = (req, res) => {
     res.render('about')
@@ -146,8 +147,8 @@ exports.postregister = (req, res) => {
 
     con.collection('user').insertOne(login)
         .then(result => {
-            res.render('homeuser', { user: result, successMsg: 'signup ' });
-        })
+            res.render('login', { user: result, successMsg: 'signup ' });
+    })
 
         .catch(err => console.log(err));
 };

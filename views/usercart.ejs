@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart</title>
+    <title>HelathNexus</title>
+    <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+      <link href="/css/style.css" rel="stylesheet" />
+      <link href="/css/responsive.css" rel="stylesheet" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <style>
       h1{
         text-align: center;
@@ -52,7 +58,8 @@
 
 <!-- cart.ejs -->
 
-<div>
+<div class="hero_area">
+  <%- include('./partials/navbar4.ejs') %>
   <h1>CART</h1>
   <br>
   <br>
@@ -97,6 +104,9 @@
   <form method="get" action="/deletecart">
   <button  type="submit"style="text-align: center; background-color: aqua;">Buy Now</button>
   </form>
+  <br>
+  <br>
+  <br>
   <script>
     function updateSubtotal(input, price) {
       let quantity = Number(input.value);
@@ -125,15 +135,9 @@
       window.location.href = "/payment"; // Redirect to another page
     }
   </script>
+  <%- include('./partials/footer.ejs') %>
 </div>
 
-</div>
-
-</div>
-
-</div>
-
-</div>
 
 
 

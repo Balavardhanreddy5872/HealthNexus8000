@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthNexus</title>
+    <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+      <link href="/css/style.css" rel="stylesheet" />
+      <link href="/css/responsive.css" rel="stylesheet" />
+      <link rel="stylesheet" href="/css/review.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  
+    <style>
+      .review-form {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  h3 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input,
+  select,
+  textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+  }
+  
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  button[type="submit"] {
+    background-color: #008CBA;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #005d80;
+  }
+    </style>
+</head>
+<body>
+  <div class="hero_area">
+    <%- include('./partials/navbar4.ejs') %>
+    <div class="review-form">
+        <h3>Customer Reviews</h3><br>
+        <a href="reviewdisplay" style="text-align: end;"><b>SEE REVIEWS</b></a>
+        <br>
+        <br>
+
+        <form action="/revsub" method="post">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+          <label for="rating">Rating:</label>
+          <select id="rating" name="rating" required>
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="2">2 Stars</option>
+            <option value="1">1 Star</option>
+          </select>
+          <label for="review">Review About products</label>
+          <textarea id="review" name="review" rows="8" required></textarea>
+          <input type="submit" value="Submit Review">
+        </form>
+      </div>
+      <%- include('./partials/footer.ejs') %>
+  </div>
+</body>
+</html>
+
+  

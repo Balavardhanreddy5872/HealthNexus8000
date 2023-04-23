@@ -2,9 +2,54 @@ var form1 = document.getElementById('form1');
 var form2 = document.getElementById('form2');
 var sbutton = document.getElementById("sbutton");
 
-function loginValidator(){
-  return ( ValidateEmail()&&Validatepassword()&& conformation())
+function loginValidator() {
+  // Get form elements
+  var nameInput = document.getElementById("name-form1");
+  var emailInput = document.getElementById("mail-form1");
+  var passwordInput = document.getElementById("pass-form1");
+  var errorMessage = "";
+
+  // Check if name is empty
+  var namePattern = new RegExp(nameInput.pattern);
+  
+  if (!namePattern.test(nameInput.value)) {
+    var nameError = document.getElementById("morf3");
+    nameError.innerHTML = "Name can only contain letters";
+    return false;
+  }
+
+  // Check if email is valid
+  if (!isValidEmail(emailInput.value)) {
+    errorMessage += "Please enter a valid email address.\n";
+    document.getElementById("morf1").innerHTML = "Please enter a valid email address.";
+  } else {
+    document.getElementById("morf1").innerHTML = "";
+  }
+
+  // Check if password is at least 5 characters long
+  if (passwordInput.value.length < 5) {
+    errorMessage += "Password must be at least 5 characters long.\n";
+    document.getElementById("morf2").innerHTML = "Password must be at least 5 characters long.";
+  } else {
+    document.getElementById("morf2").innerHTML = "";
+  }
+
+  // If there is an error, prevent form submission and display error message
+  if (errorMessage !== "") {
+    alert(errorMessage);
+    return false;
+  }
+
+  // If there is no error, allow form submission
+  return true;
 }
+
+function isValidEmail(email) {
+  // Regular expression for email validation
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
 
 function signupValidator(){
   return (userValidation() && Validatemail() && passwordValidate())

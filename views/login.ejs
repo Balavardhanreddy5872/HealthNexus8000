@@ -26,11 +26,12 @@
                   <h1 class="text-center font-weight-bold text-primary">Sign in to Account</h1>
                   <hr class="my-3" />
                   <form onsubmit="return loginValidator()" action="/login" action="/edit" id="form1" method="post" class="px-3" id="login-form">
+                    
                     <div class="input-group input-group-lg form-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text rounded-0"><i class="far fa-user fa-lg fa-fw"></i></span>
                     </div>
-                      <input type="text" id="name-form1" name="name" class="form-control rounded-0" placeholder="Username" required />
+                      <input type="text" id="name-form1" name="name" class="form-control rounded-0" placeholder="Username" pattern="[A-Za-z]+" required  />
                     </div>
                       <span class="mrof" id="morf3"></span>
                     <div class="input-group input-group-lg form-group">
@@ -86,7 +87,7 @@
               <div class="input-group-prepend">
                 <span class="input-group-text rounded-0"><i class="far fa-user fa-lg fa-fw"></i></span>
               </div>
-              <input type="text"id="name" name="name" class="form-control rounded-0" placeholder="Full Name" required />
+              <input type="text"id="name" name="name" class="form-control rounded-0" placeholder="Full Name" pattern="[A-Za-z]+" required />
             </div>
             <span class="omrf" id="omrf1"></span>
             <div class="input-group input-group-lg form-group">
