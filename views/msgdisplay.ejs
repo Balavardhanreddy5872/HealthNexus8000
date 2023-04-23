@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthNexus</title>
+    <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+      <link href="/css/style.css" rel="stylesheet" />
+      <link href="/css/responsive.css" rel="stylesheet" />
+      <link rel="stylesheet" href="/css/review.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+<body>
+    <div class="hero_area">
+        <%- include('./partials/navbar4.ejs') %>
+    <h1 style="text-align: center;"> Message</h1>
+    <% x.forEach((y)=>{%> 
+
+        <div style="padding: 8px;border: 1px solid black; margin-bottom:5px ;">
+        <p> MessageFrom: <%=y.name %></p>
+        <p> Subject: <%=y.subject %></p>
+        <p> message: <%=y.message %></p>
+          
+        </div>
+    <% }) %>
+    <%- include('./partials/footer.ejs') %>
+    </div>
+</body>
+</html>

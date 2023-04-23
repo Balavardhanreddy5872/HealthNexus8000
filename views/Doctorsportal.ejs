@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>HealthNexus</title>
+    <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg">
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+    <!-- font awesome style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+    <link rel="stylesheet" href="/css/Doctors.css">
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700|Roboto:400,700&display=swap"
+        rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="/css/responsive.css" rel="stylesheet" />
+    <style>
+table, th, td {
+    border:1px solid black;
+ }
+
+ nav {
+  background-color: #32aeb1;
+  overflow: hidden;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+nav .li a{
+    font-size: large;
+    margin-top: 30px;
+}
+.Total-profile{
+     display: flex;
+     justify-content: center;
+}
+    </style>
+</head>
+
+<body>
+    <nav style="height: 80px;">
+        <ul>
+          <li><a href="/Doctorreg" style="margin-top: 15px;">REGISTER</a></li>
+          <li><a href="/" style="margin-top: 15px;">HOME</a></li>
+          <li><a href="/Doctorlogin" style="margin-top: 15px;">Logout</a></li>
+        </ul>
+      </nav>
+
+    <div class="hero_area">
+        <!-- header section strats -->
+            <!-- end header section -->
+            <h1 style="text-decoration: underline;text-align: center;margin-top: 0;">Doctors Profile</h1>
+ <br><br>
+ <div class="Total-profile">
+<div>
+ <img src="https://cdn-icons-png.flaticon.com/512/219/219983.png" style="width:300px;height: 300px;margin-left: 100px;" alt="img">
+</div>
+ <div style="margin-top: 0px;display: inline-block;padding-left: 50px;" class="doct-profile">
+    
+    <!-- Here we used ejs tags to print the data in this web page -->
+
+<p style="font-size: 30px;color: #32aeb1;">
+        <%= user.Name%>
+    </p>
+    <p><b style="color: skyblue;">Speacility:</b>
+        <%= user.Specility%>
+    </p>
+    <p><b style="color: skyblue;">Email:</b>
+        <%= user.mail%>
+    </p>
+    <p><b style="color: skyblue;">City:</b>
+        <%= user.City%>
+    </p>
+    <p><b style="color: skyblue;">Country:</b>
+        <%= user.Country%>
+    </p>
+    <p><b style="color: skyblue;">Language:</b>
+        <%= user.Language%>
+    </p>
+    <p><b style="color: skyblue;">Medical School:</b>
+        <%= user.Medical_school%>
+    </p>
+    
+
+</div>
+</div>
+<br><br>
+<h1 style="text-decoration: underline;text-align: center;">Appointments</h1>
+<br>
+
+<table style="width:100%">
+    <tr>
+        <th>Disease</th>
+        <th>Doctor</th>
+        <th>Name of patient</th>
+        <th>Email ID</th>
+        <th>Date of App.</th>
+        <th>Time of App.</th>
+        <th>Accept/Reject</th>
+    </tr>
+
+
+    <!-- 
+    
+        Here we used array to print the list of appointments in the table
+    
+        at end we are deleting the appointments  
+     
+    -->
+
+
+    <% patient.forEach(data=>{%>
+
+
+        <tr>
+            <td>
+                <%= data.doct %>
+            </td>
+            <td>
+                <%= data.doctors1 %>
+            </td>
+            <td>
+                <%= data.name %>
+            </td>
+            <td>
+                <%= data.mail %>
+            </td>
+            <td>
+                <%= data.date %>
+            </td>
+            <td>
+                <%= data.time %>
+            </td>
+            <td>
+                <form method="POST" action="/deletedoctor">
+                    <input type="hidden" name="_id" value="<%= data._id %>">
+                    <button type="submit" onclick="return confirm('Are you sure you want to reject this appointment?')">Reject</button>
+                </form>
+            </td>
+        </tr>
+        <%})%>
+</table>
+
+                <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+                <script type="text/javascript" src="js/bootstrap.js"></script>
+                <script type="text/javascript"
+                    src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
+                    </script>
+
+
+
+
+
+
+</body>
+
+</html>

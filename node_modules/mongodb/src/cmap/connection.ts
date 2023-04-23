@@ -29,7 +29,6 @@ import { applySession, ClientSession, updateSessionFromResponse } from '../sessi
 import {
   calculateDurationInMs,
   Callback,
-  ClientMetadata,
   HostAddress,
   maxWireVersion,
   MongoDBNamespace,
@@ -46,6 +45,7 @@ import {
 } from './command_monitoring_events';
 import { BinMsg, Msg, Query, Response, WriteProtocolMessageType } from './commands';
 import type { Stream } from './connect';
+import type { ClientMetadata } from './handshake/client_metadata';
 import { MessageStream, OperationDescription } from './message_stream';
 import { StreamDescription, StreamDescriptionOptions } from './stream_description';
 import { getReadPreference, isSharded } from './wire_protocol/shared';
@@ -122,7 +122,9 @@ export interface ConnectionOptions
   credentials?: MongoCredentials;
   connectTimeoutMS?: number;
   tls: boolean;
+  /** @deprecated - Will not be able to turn off in the future. */
   keepAlive?: boolean;
+  /** @deprecated - Will not be configurable in the future. */
   keepAliveInitialDelay?: number;
   noDelay?: boolean;
   socketTimeoutMS?: number;
