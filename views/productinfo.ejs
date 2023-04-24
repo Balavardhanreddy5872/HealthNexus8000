@@ -11,46 +11,56 @@
     <link href="/css/responsive.css" rel="stylesheet" />
   <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
+  <style>
+    hr.new5 {
+  border: 10px solid black;
+  border-radius: 5px;
+}
+  </style>
 </head>
 <body>
-    <div class="hero_area">
-        <%- include('./partials/navbar3.ejs') %>
-      <div style="display: flex;"> 
-        <!-- this file helps to diplay details of given product -->
-       <div style="border: 2px solid black; margin: 10px 20px; height: 85vh;">
-        <%x.forEach((y)=>{%>
-          <!-- display image -->
-        <img src="<%=y.image%>" alt="" style="margin: 0px 60px">
-       </div>
-      
-       <form action="/cart" method="get"> 
-       <div style=" margin: 80px 100px 80px 100px; width: 80%;">
-        <input type="hidden" name="name" value="<%=y.name%>">
-        <!-- display Name -->
-         <h2><%=y.name%></h2>
-         <p>
+  <div class="hero_area">
+      <%- include('./partials/navbar3.ejs') %>
+    
+
+      <!-- this file helps to diplay details of given product -->
+      <%x.forEach((y)=>{%>
+      <div style="display: flex;">
+      <div style="margin: 20px 20px; height: 80vh;">
+        <!-- display image -->
+      <img src="<%=y.image%>" alt="" style="height: 75vh;">
+     </div>
+    
+     <form action="/cart" method="get"> 
+     <div style=" margin: 80px 100px 80px 100px; width: 80%;">
+      <input type="hidden" name="name" value="<%=y.name%>">
+      <!-- display Name -->
+       <h2><%=y.name%></h2>
+       <p>
         Dosage and Administration: The recommended dosage for Tablets is one or two tablets every<br>four to six hours, as needed for pain relief. <br>
-          Do not exceed eight tablets in 24 hours. Tablets should be taken with a full glass of water and can be taken with or without food.<br>
+         Do not exceed eight tablets in 24 hours. Tablets should be taken with a full glass of water and can be taken with or without food.<br>
 
-Warnings and Precautions: Do not take Tablets if you are allergic to Acetaminophen or any of the inactive ingredients. 
-Do not take more than the recommended dosage, as this may cause liver damage. If you are pregnant, nursing, or have a liver or kidney disease, consult your doctor before taking Tablets. Keep out of reach of children.
+         Warnings and Precautions: Do not take Tablets if you are allergic to Acetaminophen or any of the inactive ingredients. 
+          Do not take more than the recommended dosage, as this may cause liver damage. If you are pregnant, nursing, or have a liver or kidney disease, consult your doctor before taking Tablets. Keep out of reach of children.
 
-Side Effects: The most common side effects of Tablets include nausea, vomiting, stomach pain, and dizziness. If you experience any unusual symptoms, stop taking the medication and seek medical attention.
-         </p>
+         Side Effects: The most common side effects of Tablets include nausea, vomiting, stomach pain, and dizziness. If you experience any unusual symptoms, stop taking the medication and seek medical attention.
+        </p>
 <!-- display prices -->
-         <input type="hidden" name="price" value="<%=y.price1%>">
-         <h3> Price:₹<%=y.price1%></h3>
-         <h5><del><%=y.price2%></del></h5>
-         <br>
-         <p>&#9733 &#9733 &#9733 &#9733 </p>
-         <!-- <button class="card-btn" style="padding: 3px 50px; background-color: aqua;">Add to cart</button> -->
-         <button type="submit" class="card-btn" style="padding: 3px 50px; background-color: aqua;">Add to Cart</button>
-      </div>
-    </form>
+       <input type="hidden" name="price" value="<%=y.price1%>">
+       <h3> Price:₹<%=y.price1%></h3>
+       <h5><del><%=y.price2%></del></h5>
+       <br>
+       <p>&#9733 &#9733 &#9733 &#9733 </p>
+       <!-- <button class="card-btn" style="padding: 3px 50px; background-color: aqua;">Add to cart</button> -->
+       <button type="submit" class="card-btn" style="padding: 3px 50px; background-color: aqua;">Add to Cart</button>
+    </div>
+  </form>
 
-      <% }) %>
-    </div>
-    </div>
-    <%- include('./partials/footer.ejs') %>
+  </div>
+  <hr class="new5">
+    <% }) %>
+    
+ 
+  </div>
 </body>
 </html>

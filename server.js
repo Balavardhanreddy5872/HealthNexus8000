@@ -708,7 +708,6 @@ app.listen(port, function () {
 
 
 
-const Doctors = require('./models/doctors')
 const Labtests = require('./models/labtest')
 const medicine = require('./models/medicine')
 const Cart = require('./models/cart')
@@ -877,7 +876,7 @@ app.get('/msgdisplay',(req,res)=>{
 app.get("/review",(req,res)=>{
     res.render('review');
 })
-app.post('/revsub',async(req,res)=>{
+app.post('/revsub',(req,res)=>{
 
     console.log(req.body)
     const revsub ={
@@ -888,10 +887,7 @@ app.post('/revsub',async(req,res)=>{
     }
 
 
-    await Reviews.insertMany([revsub]);
-
-});
-app.get('/reviewdisplay',(req,res)=>{
+    Reviews.insertMany([revsub]);
     Reviews.find({})
     .then((x) => {
         res.render('reviewdisplay', { x })
@@ -899,10 +895,9 @@ app.get('/reviewdisplay',(req,res)=>{
     }).catch((y) => {
         console.log(y);
     })
-})
 
-//
-//  
+});
+
 app.get('/doctors',(req,res)=>{
     res.render('Doctors')
 })

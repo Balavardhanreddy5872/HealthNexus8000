@@ -9,13 +9,14 @@ const bodyParser = require("body-parser");
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const Doctors = require('./models/doctors')
-const Labtests = require('./models/labtest')
-const medicine = require('./models/medicine')
-const Cart = require('./models/cart')
-const User = require('./models/user')
-const Blog = require('./models/blog')
-const Reviews = require('./models/reviews')
+const Doctors = require('../models/doctors')
+const Labtests = require('../models/labtest')
+const medicine = require('../models/medicine')
+const medicine1 = require('../models/medicine1')
+const Cart = require('../models/cart')
+const User = require('../models/user')
+const Blog = require('../models/blog')
+const Reviews = require('../models/reviews')
 
 var user;
 
@@ -230,14 +231,13 @@ exports.postdeletemedicine = (req, res) => {
 exports.postproductinfo = (req, res) => {
     let search = req.query.search
 
-    medicine.find({ name: search }) //serach for finding medicine
+    medicine.find({ name: { $regex: new RegExp(search, "i") } })
         .then((x) => {
             console.log('Found search results')
             console.log(x)
             res.render('productinfo', { x })
         })
         .catch((y) => console.log("search results not found"))
-
 }
 exports.getcart = (req, res) => { // cart function
     let cart = {
@@ -271,7 +271,7 @@ exports.getupdate = (req, res) => { // update details
 exports.getdeletecart = (req, res) => {  //deleting cart
     Cart.deleteMany()
         .then(function () {
-            res.redirect("/payment");
+            res.redirect("/display2");
         })
         .catch((err) => {
             console.log(err);
@@ -324,7 +324,7 @@ exports.getmsgdisplay = (req,res)=>{
     })
 }
 
-expoerts.getreview=(req,res)=>{
+exports.getreview=(req,res)=>{
     res.render('review');
 }
 app.post('/revsub',async(req,res)=>{
@@ -382,7 +382,6 @@ app.post('/doctorlogin',  async (req,res)=> {
         Specility: req.body.Specility
     }
  
-    // await  Doctors.insert([data])
         
            con.collection("Doctorreg").insertOne(data)
            .then(result=>{
