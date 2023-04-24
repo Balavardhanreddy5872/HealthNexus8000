@@ -460,6 +460,54 @@ app.post('/deletedoctor', (req, res) => {
   });
 });
 
+app.get('/show-medicine',async (req,res)=>{
+    const data = await medicine.find({})
+    res.render('medicinedisplay',{data})
+  })
+  var name;
+  
+  app.post('/add', async (req, res) => {
+    // const collection = client.db("HealthNexus").collection("medicines");
+  
+    const newProduct = {
+      letter: req.body.letter,
+      name: req.body.name,
+      image: req.body.image,
+      price1: parseFloat(req.body.price1),
+      price2: parseFloat(req.body.price2)
+    };
+    name=req.body.name;
+   await con.collection("medicines").insertOne(newProduct)
+    .then(result=>{
+       res.render("adminportal")
+    })
+    .catch(err => console.log(err));
+  })
+  
+  app.post('/deletemedicine', async (req, res) => {
+    await con.collection("medicines").deleteOne({_id: new mongoose.Types.ObjectId(req.body.id)})
+    res.redirect('/show-medicine')
+  });
+  
+  // Update data in MongoDB
+  app.post('/updatemedicine', async(req, res) => {
+    // MongoClient.connect(url, (err, db) => {
+    //   if (err) throw err;
+    //   const dbo = db.db('mydb');
+    //   const id = {_id: new mongoose.Types.ObjectID(req.body.id)};
+      const updatedData = {
+        name: req.body.name,
+        price1: req.body.price1,
+        price2: req.body.price2
+      };
+     await con.collection("medicines").updateOne({_id: new mongoose.Types.ObjectId(req.body.id)}, {$set: updatedData}, (err, result) => {
+        // if (err) throw err;
+        res.redirect('/show-medicine');
+        // db.close();
+      });
+    // });
+  });
+
 
 
 

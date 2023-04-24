@@ -31,8 +31,8 @@
                 <a class="nav-link" href="/about"> <i class="fa fa-users-between-lines"></i>About <span class="sr-only">(current)</span></a>
               </li>
             </ul>
-            <form class="form-inline ">
-              <input type="search" placeholder="Search">
+            <form class="form-inline " action="/productinfo" method="get">
+              <input type="search"  name = "search" placeholder=" Enter Name of Medicine" required>
               <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
             </form>
             <!-- <div class="login_btn-contanier ml-0 ml-lg-5">
@@ -49,7 +49,7 @@
                 <div style="border: 3px solid rgb(147, 249, 135);padding: 20px;border-radius: 500px;font-size: 25px;margin: 5px;" id="name1"></div>
               </div> -->
                 <div class="login_btn-contanier ml-0 ml-lg-5" id="p1">
-              <div class="dropdown">
+              <div class="dropdown" >
                 <button class="dropbtn"><img src="/images/user.png" alt=""></button>
                 <div class="dropdown-content">
                   <a href="/update">Edit details</a>
@@ -107,7 +107,7 @@
   </header>
   <style>
     .dropbtn {
-      background-color: #04AA6D;
+      background-color: #32aeb1;
       color: white;
       padding: 16px;
       font-size: 16px;
@@ -141,5 +141,5 @@
     
     .dropdown:hover .dropdown-content {display: block;}
     
-    .dropdown:hover .dropbtn {background-color: #3e8e41;}
+    .dropdown:hover .dropbtn {background-color: #32aeb1;}
     </style>
