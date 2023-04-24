@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div class="backimg" style="display: grid;grid-template-columns: auto auto auto auto;">
+    <%x.forEach((y)=>{%>
+      <div class="product-card" >
+        <div class="product-image">
+          <img src="<%=y.image%>" class="product-thumb" alt="">
+        </div>
+        <div class="product-info">
+          <h2 class="product-brand"></h2>
+          <!-- <p class="product-short-description">Atrest 12.5mg Tablet 10'S</p> -->
+          <span class="price"></span><span class="actual-price"></span>
+        </div>
+        <button class="card-btn">add to cart</button>
+      </div>
+      <% }) %>
+  </div>
+    
+</body>
+</html>

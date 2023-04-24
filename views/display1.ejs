@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-out Page</title>
+   <link rel="stylesheet" href="/css/payment.css">
+</head>
+<body>
+
+<br>
+<br>
+<br>
+<br>
+  <div class="admin-container">
+<form class="admin-container2" action="/display2"> 
+   <% if(data) { %>
+    <div class="admin-type1">
+      <h3>Issue: <%= data.doct %></h3>
+      </div>
+       
+      <div class="admin-type1">
+      <h3> DocotorName:  <%= data.doctors1 %></h3>
+      </div>
+      
+      <div class="admin-type1">
+        <h3> Name: <%= data.name %></h3>
+      </div>
+      
+      <div class="admin-type1">
+        <h3> Date :<%= data.date %></h3>
+      </div>
+
+    <input type="submit" value="Submit">
+    <% }%>
+</form>
+</div>
+</body>
+</html>
+  

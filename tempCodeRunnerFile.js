@@ -1,0 +1,1 @@
+const Doctors = require('./models/doctors')

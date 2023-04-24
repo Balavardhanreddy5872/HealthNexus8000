@@ -1,0 +1,98 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.admin-container{
+    position: relative;
+}
+
+.admin-bg{
+    width: 350px;
+    position: absolute;
+    top: 150px;
+    right: 70px;
+}
+
+.admin-container2{
+    position: absolute;
+    top: 5%;
+    left: 30%;
+    /* border: 2px solid red; */
+    padding: 40px;
+    background-color: #e6bbad;
+     border-radius: 20px;
+    width: 490px;
+}
+
+.admin-head{
+  font-family: Brush Script MT,Brush Script Std,cursive;
+  font-size: 60px;
+  width: 500px;
+  position: absolute;
+  top: 0;
+  margin-left: 25px;
+  color: whitesmoke;
+}
+
+.admin-container img{
+    width: 100%;
+}
+
+.admin-type1,.admin-type2,.admin-type3,
+.admin-type4,.admin-type5{
+    padding: 15px;
+}
+
+.admin-type1 input,
+.admin-type2 input,
+.admin-type3 input,
+.admin-type5 input{
+    border: none;
+    height: 30px;
+    width: 250px;
+    outline: none;
+    border-radius: 4px;
+}
+
+.admin-type4 textarea{
+    height: 170px;
+    width: 400px;
+    resize: none;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+}
+
+.admin-type4 textarea::placeholder{
+    padding: 10px;
+    font-size: 15.5px;
+}
+
+.admin-container input::placeholder{
+    padding-left: 7px;
+}
+
+.admin-container input[type="submit"]{
+            border: none;
+            cursor: pointer;
+            padding-top: 10px;
+            padding-bottom: 25px;
+            border-radius: 20px;
+            margin-left: 100px;
+            width: 300px;
+            height: 30px;
+            background-color: slategrey;
+            color: white;
+            margin-top: 15px;
+}
+
+.admin-container input[type="submit"]:hover{
+    background-color: lavender;
+}
+
+.admin-type5{
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}

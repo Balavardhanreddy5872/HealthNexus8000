@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+      h1{
+        text-align: center;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      table {
+        width: 100%;
+    
+      }
+      
+      th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+      
+      th {
+        background-color: #f2f2f2;
+      }
+      button{
+        padding: 3px 50px; 
+        background-color: aqua;
+      }
+    </style>
+</head>
+<body>
+
+
+<!-- cart.ejs -->
+
+<div>
+  <h1>CART</h1>
+  <br>
+  <br>
+  <table border="5" style="height: 30vh">
+    <thead style="height: 20vh;">
+      <tr style="background-color: aqua;">
+        <th>Product</th>
+        <th style="width: 100px;">Price</th>
+        <th style="width: 100px;">Quantity</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% let subtotal = 0 %>
+      <% x.forEach((y)=>{%> 
+      <form action="/delete" method="post"> 
+        <tr>
+          <input type="hidden" name="name" value="<%=y.name%>">
+          <td style="text-align: center;"><%=y.name%></td>
+          <input type="hidden" name="price" value="<%=y.price%>">
+          <td style="text-align: center;"><%=y.price%></td>
+          <td>
+            <% let quantity = y.quantity || 1 %>
+            <input type="number" name="quantity" value="<%= quantity %>" min="1" max="10" onchange= "updateSubtotal(this , <%= y.price %>)">
+          </td>
+          <td>
+            <button type="submit">delete</button>
+          </td>
+        </tr>
+      </form>
+        <% subtotal += y.price * Number(quantity) %>
+      <% }) %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2"><strong>Total:</strong></td>
+        <td id="total"><%= subtotal %></td>
+      </tr>
+    </tfoot>
+  </table>
+  <br>
+  <form method="get" action="/deletecart">
+  <button  type="submit"style="text-align: center; background-color: aqua;">Buy Now</button>
+  </form>
+  <script>
+    function updateSubtotal(input, price) {
+      let quantity = Number(input.value);
+      if (isNaN(quantity) || quantity < 1 || quantity > 10) {
+        quantity = 1;
+        input.value = quantity;
+      }
+      let subtotal = price * quantity;
+      let total = document.getElementById("total");
+      total.innerHTML = subtotal + Number(total.innerHTML) - (price * Number(input.defaultValue));
+      input.defaultValue = quantity;
+    }
+    function buyNow() {
+      let total = document.getElementById("total");
+      total.innerHTML = "0";
+      let inputs = document.getElementsByName("quantity");
+      for (let i = 0; i < inputs.length; i++) {
+        inputs[i].value = "1";
+        inputs[i].defaultValue = "1";
+      }
+      x = []; // Clear the array of products
+      let tbody = document.querySelector("tbody");
+      while (tbody.firstChild) {
+        tbody.removeChild(tbody.firstChild);
+      }
+      window.location.href = "/payment"; // Redirect to another page
+    }
+  </script>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<header class="header_section">
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg custom_nav-container pt-3" style="height:10vh;">
+        <a class="navbar-brand" href="">
+          <img src="/images/SimplyVital-logo.jpg" alt="" style="width: 50px;height: 50px;border-radius: 100px; box-shadow:1px 1px 3px 1px rgb(155, 232, 232);">
+          <span>
+            HealthNexus
+          </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="d-flex  flex-column flex-lg-row align-items-center w-100 justify-content-between">
+            <ul class="navbar-nav  ">
+              <li class="nav-item active">
+                <a class="nav-link" href="/index"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/medicine"><i class="fa  fa-hand-holding-medical"></i> Medicine <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/labtests"><i class="fa fa-x-ray"></i> LabTests <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Doctors"> <i class="fa fa-user-nurse"></i> Doctor <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about"> <i class="fa fa-users-between-lines"></i>About <span class="sr-only">(current)</span></a>
+              </li>
+            </ul>
+            <form class="form-inline " action="/productinfo" method="get">
+              <input type="search"  name = "search" placeholder=" Enter Name of Medicine" required>
+              <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
+            </form>
+            <div class="login_btn-contanier ml-0 ml-lg-5">
+                <a href="/usercart">
+                  <i class="fa fa-cart-plus"></i> 
+                  <span>
+                    Cart
+                  </span>
+                </a>
+              </div>
+            
+          </div>
+        </div>
+
+      </nav>
+    </div>
+  </header>

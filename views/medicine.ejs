@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>HealthNexus</title>
+  <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg">
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700|Roboto:400,700&display=swap" rel="stylesheet">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="/css/responsive.css" rel="stylesheet" />
+  <link href="/css/medicine.css" rel="stylesheet" />
+</head>
+
+
+    <!-- end header section -->
+<body>
+  </div>
+
+  <!-- health section -->
+
+  <div class="hero_area">
+    <%- include('./partials/navbar3.ejs') %>
+    <!-- header section strats -->
+    <!---Med head-->
+
+    <div id="MedPage">
+      <div id="info">
+        <p class="cat">Find Your Prescription Medicines</p>
+          <h1 class="h4">Shop by Drug Category</h1>
+          <br>
+          <table>
+           <thead>
+              <tr>
+                  <td><a href="#A">A</a></td> <td><a href="#B">B</a></td> <td><a href="#C">C</a></td> 
+                  <td><a href="#D">D</a></td> 
+                  <td><a href="#E">E</a></td><td><a href="#F">F</a></td><td><a href="#G">G</a></td><td><a href="#H">H</a></td><td><a href="#I">I</a></td>
+                  <td><a href="#K">K</a></td><td><a href="#L">L</a></td> <td><a href="#M">M</a></td> <td><a href="#N">N</a></td> <td><a href="#O">O</a></td> <td><a href="#P">P</a></td><td><a href="#R">R</a></td>
+                  <td><a href="#S">S</a></td> <td><a href="#U">U</a></td> <td><a href="#V">V</a></td> <td><a href="#W">W</a></td><td id="all">ALL</td>
+              </tr>
+          </thead>
+       </table>
+       </div>
+<!---Med head end-->
+
+    <!-- image section -->
+    <h2 class="product-category">Alphabetical Order</h2>
+    <% for(let i=0;i<list.length;i++) { %> 
+    <section class="product"> 
+      <h2 class="product-category left-alp" id="<%=String.fromCharCode('A'.charCodeAt(0)+i)%>"><%=String.fromCharCode('A'.charCodeAt(0)+i)%></h2>
+      <button class="pre-btn"><img src="images/arrow.png" alt=""></button>
+      <button class="nxt-btn"><img src="images/arrow.png" alt=""></button>
+
+    
+      <div class="product-container">
+      <%  for(let j=0;j<list[i].length;j++) { %>
+      <form action="/cart" method="get">
+        <div class="product-card">
+          <div class="product-image">
+            <span class="discount-tag">50% off</span>
+            <img src="<%= list[i][j].image %>" class="product-thumb" alt="">
+          </div>
+          <div class="product-info">
+            <h2 class="product-brand"><input type="hidden" name="name" value="<%= list[i][j].name %>"><%=  list[i][j].name %></h2>
+            <!-- <p class="product-short-description">Atrest 12.5mg Tablet 10'S</p> -->
+            <input type="hidden" name="price" value="<%= list[i][j].price1 %>">
+            <span class="price">&#8377 <%= list[i][j].price1 %></span><span class="actual-price">&#8377 <%= list[i][j].price2 %></span>
+          </div>
+            <button type="submit">Add to Cart</button>
+      </div>
+      </form>
+      
+        <% } %>
+      </div>
+</section>
+<% } %>
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- end here -->
+<script src="js/script1.js"></script>
+    <!-- end of image section -->
+  <!-- info section -->
+  <section class="info_section layout_padding2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="info_contact">
+            <h4>
+              Contact23
+            </h4>
+            <div class="box">
+              <div class="img-box">
+                <img src="images/telephone-symbol-button.png" alt="">
+              </div>
+              <div class="detail-box">
+                <h6>
+                  +01 123567894
+                </h6>
+              </div>
+            </div>
+            <div class="box">
+              <div class="img-box">
+                <img src="images/email.png" alt="">
+              </div>
+              <div class="detail-box">
+                <h6>
+                  demo@gmail
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="info_menu">
+            <h4>
+              Menu
+            </h4>
+            <ul class="navbar-nav  ">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html"> About </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="medicine.html"> Medicine </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="buy.html"> Online Buy </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="info_news">
+            <h4>
+              newsletter
+            </h4>
+            <form action="">
+              <input type="text" placeholder="Enter Your email">
+              <div class="d-flex justify-content-center justify-content-md-end mt-3">
+                <button>
+                  Subscribe
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- end info section -->
+
+  <!-- footer section -->
+  <section class="container-fluid footer_section">
+    <p>
+      &copy; 2023 All Rights Reserved. Design by
+      <a href="/">HealthNexus</a>
+    </p>
+  </section>
+  <!-- footer section -->
+  <script type="text/javascript" src="/js1/script1.js"></script>
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
+  </script>
+  <script type="text/javascript">
+ 
+    $(".owl-carousel").owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      navText: [],
+      autoplay: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 2
+        },
+        1000: {
+          items: 4
+        }
+      }
+    });
+  </script>
+  <script type="text/javascript">
+    $(".owl-2").owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      navText: [],
+      autoplay: true,
+
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 2
+        },
+        1000: {
+          items: 4
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-out Page</title>
+   <link rel="stylesheet" href="/css/payment.css">
+</head>
+<body>
+
+<br>
+<br>
+<br>
+<br>
+  <div class="admin-container">
+<form class="admin-container2" action="/display4"> 
+   <% if(data) { %> 
+     <div class="admin-type1">
+        <h3> Name: <%= data.name %></h3>
+      </div>
+      <div class="admin-type1">
+        <h3> Number: <%= data.number %></h3>
+      </div>
+      <div class="admin-type1">
+        <h3> mail: <%= data.formfill3 %></h3>
+      </div>
+      <div class="admin-type1">
+        <h3> Package :<%= data.package %></h3>
+      </div>
+      <div class="admin-type1">
+        <h3> test: <%= data.test %></h3>
+      </div>
+
+    <input type="submit" value="Submit">
+    <% }%>
+</form>
+</div>
+</body>
+</html>
+  

@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "alert": "^5.1.4",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "expres": "^0.0.5",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "mongodb": "^5.2.0",
+    "mongoose": "^7.0.3",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.22",
+    "sqlite3": "^5.1.6"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "name": "healthnexus",
+  "version": "1.0.0",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

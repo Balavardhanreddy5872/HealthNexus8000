@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Details</title>
+    <style>
+        .detuser{
+            border: 2px solid red;
+            background-color: rgb(71, 198, 233);
+            text-align: center;
+            box-shadow: 2px 2px 2px;
+            width: 400px;
+            height: 200px;
+            margin-left: 500px;
+        }
+        .up{
+            padding-left: 100px;
+            margin-top: 20px;
+            margin-left: 500px;
+            border: 2px solid black;
+            box-shadow: 2px 2px 2px;
+            width: 400px;
+            height: 200px;
+        }
+        .udet{
+            padding-left: 0px;
+        }
+        .low{
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>User Details</h1>
+   <div class="detuser">
+   
+    <p>User Name           : <%=user.name %></p>
+    <p>User Email          : <%=user.email %></p>
+    <p>User Password       : <%=user.password %></p>
+    </div>
+    <h2 style="margin-left: 600px;" id="updte">Update user details</h2>
+    <form action="/update" method="post">
+        <div class="up">
+            <div class="low">
+                <input type="hidden" name="user_id" value="<%=user._id %>"><br>
+                <label for="name" class="udet">Name</label><br>
+                <input type="text" name="name" value="<%=user.name %>"><br>
+                <label for="name" class="udet">Email</label><br>
+                <input type="text" name="email" value="<%=user.email %>"><br>
+                <label for="name" class="udet">Password</label><br>
+                <input type="text" name="password" value="<%=user.password %>"><br>
+                <input type="submit" value="Update Profile">
+            </div>
+            
+           </div>
+    </form>
+   
+    
+</body>
+</html>

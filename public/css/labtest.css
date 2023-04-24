@@ -1,0 +1,458 @@
+body{
+    background-color: aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.image1{
+    display: flex;
+    background-color: rgb(156, 240, 240);
+    
+
+}
+.form1{
+   display: inline-block;
+   border: 2px white;
+   margin: 50px;
+   animation: lab-test 1s;
+}
+#fm{
+    left: 10px;
+}
+
+.formfill{
+  width: 30%;
+ /* background-color: #E2C06A; */
+ background-color: #F0E4B1;
+ left: 10px;
+ margin: 50px;
+ margin-left: 10px;
+ animation: lab-test 1s;
+}
+img{
+    width: 60%;
+}
+input{
+    border: none;
+    border-bottom: 2px solid black;
+    top:10px;
+}
+label{
+    color: rgb(84, 54, 231);
+}
+.swa-matter button{
+    background-color:#5BB0DD;
+    width:50%;
+    /* border: 2px solid red; */
+    
+}
+.swasthya .swa-matter button{
+    /* margin-left: 0; */
+    float: left;
+    width: 150px;
+}
+.disease{
+    display: flex;
+    justify-content: space-evenly;
+}
+.disease p{
+    font-size: 20px;
+}
+.disease .ch::before{
+    background-image: url("sprite-new-diag.png");
+
+}
+.popular{
+    background-color: white;
+    width: 100%;
+    margin-top: 20px;
+}
+.selling{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    text-align: center; 
+    font-size: 18px;
+    font-family: 'Gloock', serif;
+}
+
+.swasthya{
+    background-color: antiquewhite;
+    margin:10px;
+    /* border: 2px solid red; */
+    font-family: 'Gloock', serif;
+    position: relative;
+}
+.swa-matter{
+    position: absolute;
+    z-index: 1;
+}
+.shield{
+    background-color:rgb(106, 204, 171);
+    margin:10px;
+    font-family: 'Gloock', serif;
+    position: relative;
+}
+.Health{
+    background-color: aquamarine;
+    margin:10px;
+    font-family: 'Gloock', serif;
+    position: relative;
+}
+.diabetes{
+    background-color: bisque;
+    margin:10px;
+    position: relative;
+    font-family: 'Gloock', serif;
+}
+.Aarogyam{
+    background-color: rgb(153, 243, 148);
+    margin:10px;
+    font-family: 'Gloock', serif;
+    position: relative;
+}
+.nhealthy{
+    background-color: rgb(225, 183, 253);
+    margin: 10px;
+    font-family: 'Gloock', serif;
+    position: relative;
+}
+.screens{
+    background-color:rgb(237, 148, 159);
+    margin: 10px;
+    position: relative;
+    font-family: 'Gloock', serif;
+}
+.customers{
+    position: relative;
+}
+.customers > p{
+    padding-left: 20px;
+}
+.boxes{
+    display: flex;
+    margin: 20px;
+
+}
+.manzo{
+    display: inline-block;
+    
+}
+ .box1,.box2,.box3{
+    border: 1px solid rgb(85, 237, 121);
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 4px 4px 4px black;
+    background-color: #6B77E3;
+}
+.hh {
+    position: relative;
+    justify-content: space-around;
+}
+.high{
+   display: flex;
+   justify-content: space-around;
+   margin: 20px;
+}
+.hh1,.hh2,.hh3{
+    background-color: #AF9B46;
+    padding: 20px;
+    display:inline-block;
+    margin: 10px;
+}
+.hh4{
+    background-color: #AF9B46;
+    padding: 20px;
+    display:inline-block;
+    margin: 10px;
+}
+b{
+    padding-left: 20px;
+}
+.app{
+    display: flex;
+    background-color: rgb(240, 98, 126);
+    height: 100px;
+}
+.app1{
+    display: inline-block;
+    margin-left: 500px;
+
+}
+.bhw{
+    display: inline-block;
+}
+.bhw1{
+    display: inline-block;
+}
+.app2{
+    display: inline-block;
+    margin-left: 30px;
+    padding: 30px;
+    
+}
+#btn{
+    justify-content: center;
+    text-decoration: none;
+}
+#bn{
+    text-decoration: none;
+    
+
+}
+.now{
+    margin: 30px;
+    width: 90px;
+    background-color: #5BB0DD;
+     width: 70%;
+     border: none;
+    /* color: white; */
+}
+button a{
+    color: white;
+
+}
+.labs{
+    background-color: #24aeb1;
+}
+.labs ul{
+   list-style-type: none;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.lnk{
+    text-decoration: none;
+}
+.labs li a{
+    padding:10px;
+    color: white;
+}
+#grp {
+ width: 50px;
+ margin-left: 100px;
+ margin-top: 10px;
+}
+.nexus{
+    display:inline-block;
+}
+.nxs{
+    display: inline-block;
+    padding-left:10px ;
+    top: 10px;
+}
+input:focus{
+    outline: none;
+}
+hr{
+    width: 1200px;
+    margin-left: 50px;
+}
+.foot{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: space-evenly;
+}
+.foot ul{
+    padding: 5px;
+}
+.foot li{
+  list-style-type: none;
+  padding: 2px;
+}
+
+.but{
+    padding: 20px;
+}
+.swasthya img{
+   bottom: 0;
+   position: absolute;
+   width: 350px;
+   left: 120px;
+
+}
+.shield img {
+     bottom: 0;
+     position: absolute;
+      width: 350px;
+     right: 10px;
+}
+.shield-matter {
+    position: absolute;
+}
+.shield-matter button {
+    background-color: #5BB0DD;
+    width: 50%;
+}
+
+.shield .shield-matter button {
+    float: left;
+    width: 150px;
+}
+.Health img {
+    bottom: 0;
+    position: absolute;
+    width: 300px;
+    right: 0px;
+}
+
+.Health-matter {
+    position: relative;
+    z-index: 1;
+}
+
+.Health button {
+    background-color: #5BB0DD;
+    width: 150px;
+    float: left;
+}
+.diabetes img {
+    bottom: 0;
+    position: absolute;
+    width: 300px;
+    right: 0px;
+}
+
+.diabetes-matter {
+    position: relative;
+    z-index: 1;
+}
+
+.diabetes button {
+    background-color: #5BB0DD;
+    width: 150px;
+    float: left;
+}
+.Aarogyam img {
+    bottom: 0;
+    position: absolute;
+    width: 300px;
+    right: 0px;
+}
+
+.Aarogyam-matter {
+    position: relative;
+    z-index: 1;
+}
+
+.Aarogyam button {
+    background-color: #5BB0DD;
+    width: 150px;
+    float: left;
+}
+.nhealthy img {
+    bottom: 0;
+    position: absolute;
+    width: 300px;
+    /* left:100px; */
+    float: right;
+}
+
+.nhealthy-matter {
+    position: relative;
+    z-index: 1;
+}
+
+.nhealthy button {
+    background-color: #5BB0DD;
+    width: 150px;
+    float: left;
+}
+.screens img {
+    bottom: 0;
+    position: absolute;
+    width: 250px;
+    left: 80px;
+}
+
+.screens-matter {
+    position: relative;
+    z-index: 1;
+}
+
+.screens button {
+    background-color: #5BB0DD;
+    width: 150px;
+    float: left;
+}
+@media screen and (max-width:1511px){
+    body>div.hero_area>div.sp>div>div.swasthya>img{
+        width: 300px;
+        left: 50px;
+    }
+   
+}
+@media  screen and (max-width:1100px) {
+    .image1{
+        flex-direction: column;
+        align-items: center;
+    }
+    #bn{
+        width: auto;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+    }
+    body > div.app > div.app1{
+        margin: 0;
+    }
+    body > div.app{
+        justify-content: space-around;
+    }
+}
+
+@media screen and (max-width:514px) {
+    body > div.app{
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width:540px) {
+    .hh{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    body > div.labs > ul{
+        flex-direction: column;
+    }
+    .r{
+        width: 160px;
+    }
+}
+@media screen and (max-width:750px){
+    body > div > div.sp > div{
+        display: grid;
+        grid-template-columns: auto auto auto;
+    }
+}
+@media screen and (max-width:560px){
+    body > div > div.sp > div{
+        display: grid;
+        grid-template-columns: auto auto;
+    }
+}
+@media  screen and (max-width:926px) {
+   .swasthya .swa-matter{
+       text-align: center;
+       
+    }
+}
+@media (max-width:916px) {
+    .selling .swasthya .swa-matter p{
+        word-break: break-word;
+    }
+}
+ .error{
+   color: red;
+   font-size: 12px;
+   display: none;
+}
+
+@keyframes lab-test {
+      0%{
+      opacity: 0;
+      transform: rotateX(150deg);
+    }
+    50%{
+        opacity:1;
+    }
+}

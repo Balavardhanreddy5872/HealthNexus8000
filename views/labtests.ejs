@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+ 
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+    
+  <title>HealthNexus</title>
+  <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+ 
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+  <link rel="stylesheet" href="/css1/swiper-bundle.min.css">
+
+  <!-- CSS -->
+ 
+
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700|Roboto:400,700&display=swap" rel="stylesheet">
+
+ 
+  <link href="/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link href="/css/responsive.css" rel="stylesheet" />
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+  <script src="/js/script.js" defer></script>
+  <link href="/css/labtest.css" rel="stylesheet" />
+  <script src="/js/lab.js"></script>
+ 
+</head>
+<body>
+  <div class="hero_area">
+    <!-- header section strats -->
+    <%- include('./partials/navbar3.ejs') %>
+    <div class="image1">
+        <img class="form1" src="https://www.netmeds.com/images/cms/wysiwyg/cms/1674462961_WhatsApp_Image_2023-01-23_at_13.57.07.jpg" alt="">
+        <div class="formfill" id="bn">
+          <form class="form1" onsubmit="return lab()" id="fm" action="/labtests" method="post">
+            <p>Please fill in your details </p>
+            <label for="name" >NAME</label><br>
+            <input type="text" name="name" id="name" maxlength="50" >
+            <div class="error" id="nerror"></div><br>
+            <label for="number">MOBILE NUMBER</label>
+            <br>
+            <input type="number" name="number" id="number">
+            <div class="error" id="merror"></div><br>
+            <label for="pincode">PINCODE</label><br>
+            <input type="tel" name="formfill3" id="pincode" maxlength="6" >
+            <div class="error" id="perror"></div><br>
+            <label for="package" id="ff" >CHOOSE PACKAGE</label><br>
+            <input list="medic" id="package" name="package">
+            <datalist id="medic">
+                <option value="Aarogyam A">Aarogyam A</option>
+                <option value="Aarogyam B">Aarogyam B</option>
+                <option value="Aarogyam C">Aarogyam C</option>
+                <option value="HealthNexus A">HealthNexus A</option>
+                <option value="HealthNexus B">HealthNexus B</option>
+                <option value="HealthNexus C">HealthNexus C</option>
+                <option value="NHP">HealthNexus Health Pack</option>
+                <option value="Aarogyam X">Aarogyam X</option>
+                <option value="BEP">Basic Elergy Package</option>
+                <option value="NMP">HealthNexus Male Package</option>
+                <option value="NFP">HealthNexus Female Package</option>
+                <option value="Aarogyam xl">Aarogyam XL</option>
+            </datalist>
+            <div class="error" id="gerror"></div><br>
+            <label for="tet" id="11" >CHOOSE Test</label><br>
+            <input list="medicover" id="test" name="test">    
+            <datalist id="medicover">
+                    <option class="scroll">Liver Profile</option>
+                    <option class="scroll">Diabets</option>
+                    <option class="scroll">Lipid Profile</option>
+                    <option class="scroll">Thyroid Profile</option>
+                    <option class="scroll">Iron deficiency</option>
+                    <option class="scroll">T3-T4-TSH</option>
+                    <option class="scroll">TSH</option>
+                    <option class="scroll">HBA1C</option>
+                    <option class="scroll">AMA(anti microsomal antibody)</option>
+                    <option class="scroll">Urirc Acid Serum</option>
+                    <option class="scroll">RF(Rhumatoid Factor)</option>
+                    <option class="scroll">Vitamin B-12</option>
+                    <option class="scroll">Calcium</option>
+                    <option class="scroll">PPBS</option>
+                    <option class="scroll">FBS</option>
+                    <option class="scroll">CRP</option>
+                    <option class="scroll">PRL</option>
+            </datalist>
+            <div class="error" id="terror"></div><br>
+            <input type="checkbox">I agree to HealthNexus Terms and Conditions. <br>
+            <button type="submit" name="BOOK NOW" >BOOK NOW</button>
+        
+        
+    </form>
+    </div>
+    </div>
+    <div class="popular">
+        <h2>Popular Tests</h2>
+        <p>and many more tests and packages <span style="font-size: 20px;">@ THE BEST PRICES</span></p>
+    
+   <div class="disease">
+    <p class="ch">THyroid Profile</p>
+    <p>Liver Profile</p>
+    <p>Lipid Profile</p>
+    <p>Diabets</p>
+   
+   </div>
+   <div class="disease">
+    <p>Iron Deficiency</p> 
+    <p>Testosterone</p> 
+    <p>Complete Hemogram</p>
+    <p>Vitamin</p>
+    
+   </div>
+
+</div>
+  <div class="sp">
+    <h2>Top Selling Packages</h2>
+    <p>Choose from the list of top-selling packages tailored for you. We care for your health!</p>
+    
+<div class="selling">
+  <div class="swasthya">
+      <img src="/images/swasthya-removebg-preview.png" alt="">
+      <div class="swa-matter">
+          <h3>HealthNexus Swasthya</h3>
+          <p>Book Regular Health Check-up Package HealthNexus Swasthya, a Basic Screening Preventive Health Check-up Profile including
+            59 tests.</p>
+            <div>
+          <del>Rs.3200</del>&nbsp;
+          <span>Rs.1100</span>
+          </div>
+          <button class="now"><a href="#bn">BOOK NOW</a> </button>
+      </div>
+ 
+  </div>
+  <div class="shield">
+    <img src="/images/Sheld-pack-removebg-preview.png" alt="">
+    <div class="shield-matter">
+      <h3>HealthNexus Shield Pack</h3>
+      <p>HealthNexus Shield Pack helps to protect against a particular danger or risk. It includes a unique diagnostic profile of
+        56 tests for a comprehensive health evaluation.</p>
+        <div>
+        <del>Rs.3000</del>
+        <span>Rs.900</span>
+        </div>
+      
+      <button class="now"><a href="#bn">BOOK NOW</a> </button>
+    </div>
+   
+  </div>
+  <div class="Health">
+    <img src="/images/1669131287_HealthNexus_900-removebg-preview (1).png" alt="">
+    <div class="Health-matter">
+      <h3>HealthNexus Health Pack</h3>
+      <p>Health check-ups are very useful in the early detection of all types of illnesses and risk factors. Simple to
+        understand and less time consuming, our HealthNexus Health Pack comprises of 35 parameters of regular tests that have been
+        specially designed keeping your health in mind.</p>
+    </div>
+    <div>
+      <del>Rs.1699</del>&nbsp;
+      <span>Rs.499</span>
+    </div>
+    
+    <button class="now"><a href="#bn">BOOK NOW</a> </button>
+  </div>
+  <div class="diabetes">
+    <img src="/images/Diabetes11-removebg-preview.png" alt="">
+    <div class="diabets-matter">
+    <h3>HealthNexus Diabetic Checkup</h3>
+    <p>Meant for people who want to get regular reports to prevent/check their diabetes levels. It includes 49 tests.</p>
+    </div>
+    <div>
+      <del>Rs.3450</del>&nbsp;
+      <span>Rs.899</span>
+    </div>
+   
+    <button class="now"><a href="#bn">BOOK NOW</a> </button>
+  </div>
+  <div class="Aarogyam">
+    <img src="/images/Aarogyamb-removebg-preview.png" alt="">
+    <div class="Aarogyam-matter">
+      <h3>Aarogyam B</h3>
+      <p>Meant for people who want to get regular reports to prevent/check their diabetes levels. It includes 49 tests.</p>
+    </div>
+   <div>
+    <del>Rs.2600</del>&nbsp;
+    <span>Rs.1050</span>
+   </div>
+    
+    <button class="now"><a href="#bn">BOOK NOW</a> </button>
+   </div>
+   <div class="nhealthy">
+    <img src="/images/swasthya-removebg-preview.png" alt="">
+    <div class="nhealthy-matter">
+    <h3>HealthNexus Healthy</h3>
+    <p>HealthNexus Healthy Full Body Checkup Package will help you know the functioning of your major body organs.</p>
+    </div>
+   <div>
+    <del>Rs.3000</del>
+     <span>Rs.999</span>
+   </div>
+   
+   <button class="now"><a href="#bn">BOOK NOW</a> </button>
+</div>
+<div class="screens">
+    <img src="/images/1677826542_MobilePush249_03-removebg-preview.png" alt="">
+    <div class="screens-matter">
+    <h3>HealthNexus Pre-Screening</h3>
+    <p>HealthNexus Pre-Screening helps to evaluate against common illness /infection of blood / urine / stool and also
+      determines blood group of a person which is an important parameter required in cases of anaemia (due to chronic blood
+      loss) and for identity.</p>
+    </div>
+    <div>
+      <del>Rs.910</del>
+      <span> Rs.649</span>
+    </div>
+   
+    <button class="now"><a href="#bn">BOOK NOW</a> </button>
+ </div>
+ </div>
+</div>
+
+<div class="customers">
+    <h2><b> Customer Speak</b></h2>
+    <p>Customer Speak Customer satisfaction is our prime focus. We would like to hear your comments about our service.</p>
+    <div class="boxes">
+    <div class="box1 bb">
+        <h3 class="manzo">Rajiv Singh </h3>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i><br>
+        <span>Mumbai</span><br>
+        <span>--------------------------------</span>
+        <p>I've done lab tests before. The process seemed so off-putting.But with HealthNexus it has been so easy and Professional.</p>
+    </div>
+    <div class="box2 bb">
+        <h3 class="manzo ">Manzoor </h3>
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i><br>
+        <span>Delhi</span><br>
+        <span>--------------------------------</span>
+        <p>This is the best lab test experience ever!The process seemed so off putting but with HealthNexus it has been so easy and HealthNexus Swasthya package</p>
+    </div>
+    <div class="box3 bb">
+        <h3 class="manzo">Kiran chakravarthi</h3>
+        &nbsp; &nbsp; &nbsp; 
+        <i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i>
+        <i class="bi manzo bi-star-fill"></i><br>
+        <span>Chennai</span><br>
+        <span>--------------------------------</span>
+        <p>In HealthNexus,The phlebotomists took great care when drawing the blood etc. He was very reassuring!The process very smoothly.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="light">
+  <h2><b>Our Highlights</b></h2>
+</div>
+   
+  <div class="high">
+    <div class="hh">
+      <div class="hh1 r">
+        <h4>Home Sample Collection</h4>
+    </div>
+    <div class="hh2 r">
+      <h4>2000+Location Served</h4>
+  </div>
+  <div class="hh3 r">
+    <h4>NABL,CAP ISO Certified</h4>
+</div>
+<div class="hh4 r">
+  <h4>Upto 80% offer</h4>
+</div>
+</div>    
+</div>
+<div class="labs">
+  <ul>
+    <li> Certified Labs </li>
+    <li><a href="https://netmeds.com/health-packages" class="lnk" target="_blank" rel="noopener"> Best Price </a></li>
+    <li><a href="https://netmeds.com/health-packages" class="lnk" target="_blank" rel="noopener"> Assured Quality </a></li>
+  </ul>
+</div>
+<div class="nexus">
+  <img id="grp" src="/images/SimplyVital-logo.jpg">
+</div>
+<div class="nxs">
+  <p>
+    Nexus.com is one of India’s most trusted pharmacies, dispensing quality medicines at reasonable prices to over 7 million happy customers – PAN India. 
+  </p>
+</div>
+<hr>
+<div class="foot">
+  <div class="company">
+    <h3>COMPANY</h3>
+    <ul>
+      <li>About Nexus</li>
+      <li>customers Speak</li>
+      <li>In the News</li>
+      <li>Career</li> 
+      <li>Terms and Conditions</li> 
+      <li>Privacy Policy</li>
+      <li> Fees and Payments Policy</li>
+      <li>Shipping and Delivery Policy</li>
+      <li>Return, Refund and Cancellation Policy</li>
+      <li>Contact</li>
+    </ul>
+  </div>
+  <div class="shop">
+    <h3>SHOPPING</h3>
+    <li>Browse by A-Z</li>
+    <li>Browse by Manufacturers</li>
+    <li>Health Articles</li>
+    <li>Offers / Coupons</li>
+    <li>FAQs</li>
+  </div>
+   <div class="social">
+    <h3>SOCIAL</h3>
+    <li>Patients Alike</li>
+    <li>Facebook</li>
+    <li>Twitter</li>
+    <li>LinkedIn</li>
+    <li>Youtube</li>
+    <li>Refer & Earn</li>
+   </div>
+   <div class="subscribe">
+    <h3>SUBSCRIBE TO OUR NEWSLETTER</h3>
+    <p>Get a free subscription to our health and <br>fitness tip and stay tuned to our latest offers</p>
+    <form>
+      <input type="email" placeholder="Enter your Email address" required>
+
+    </form>
+  </div>
+
+</div>
+<%- include('./partials/footer.ejs') %>
+
+  <script src="/js/lab.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User details</title>
+    <style>
+      h1{
+        text-align: center;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      table {
+        width: 100%;
+    
+      }
+      
+      th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+      
+      th {
+        background-color: #f2f2f2;
+      }
+      button{
+        padding: 3px 50px; 
+        background-color: aqua;
+      }
+    </style>
+</head>
+<body>
+
+<div>
+  <h1>User Details</h1>
+  <br>
+  <br>
+  <table border="5" style="height: 30vh">
+    <thead style="height: 20vh;">
+      <tr style="background-color: aqua;">
+        <th style="width: 100px;">UserName</th>
+        <th style="width: 100px;">UserEmail</th>
+        <th style="width: 100px;">UserPassword</th>
+        <th style="width: 100px;">delete</th>
+        <th style="width: 100px;">Company</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <% x.forEach((y)=>{%> 
+      <form action="/deleteuser" method="post"> 
+        <tr>
+          <input type="hidden" name="name" value="<%=y.name%>">
+          <td style="text-align: center;"><%=y.name%></td>
+          <input type="hidden" name="email" value="<%=y.email%>">
+          <td style="text-align: center;"><%=y.email%></td>
+          <input type="hidden" name="password" value="><%=y.password%>">
+          <td style="text-align: center;"><%=y.password%></td>
+        
+          <td>
+            <button type="submit">delete</button>
+          </td>
+         
+          <td>
+        
+                HealthNexus
+           
+          </td>
+        </tr>
+      </form>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

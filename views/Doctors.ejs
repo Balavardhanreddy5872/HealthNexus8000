@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>HealthNexus</title>
+  <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg">
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+  <link rel="stylesheet" href="/css/Doctors.css">
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700|Roboto:400,700&display=swap" rel="stylesheet">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="/css/responsive.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="hero_area">
+    <!-- header section strats -->
+    <%- include('./partials/navbar3.ejs') %>
+  <!-- end header section -->
+
+<div class="doct-appointment">
+<div class="doctor-container">
+     <img src="/images/carousel.jpg" alt="">
+     <div class="timings-appoinment">
+    <h1 style="color: rgba(0, 225, 225, 1);padding-bottom: 15px;">Business Hours</h1>    
+    <h3>OPENING DAYS</h3>
+          <p>Monday - Friday: 9am to 10pm</p>
+          <p>Saturday: 9am to 7pm</p>
+    <h3>Vacations</h3>
+          <p>All Sundays</p>
+          <p>All Official Holidays</p>
+          
+       <h2 style="border-top: 2px solid white;padding-top: 10px;">For Emergency cases</h2>
+       <p><b>(+01) 123 456 7890</b></p>   
+      
+   </div>
+   
+   
+
+<div class="appointment-top">
+   <div class="appointment">
+    <h4>Booking Appointment</h4>
+    <h2>Free Consultation</h2>
+    <form method="post" action="/doctor">
+    <div class="option-class">
+       <label for="doctors"></label>
+         <select name="doct" id="doctors1">
+          <option name="doct" selected>Select Issue</option>
+          <option name="doct">Dental care</option>
+          <option name="doct">Heart Diseases</option>
+          <option name="doct">Lung problems</option>
+          <option name="doct">Brain problems</option>
+         </select>
+      <label for="doctors"></label>
+      <select name="doctors1" id="doctors2">
+        <option name="doctors1" selected>Select Doctor</option>
+        <option name="doctors1">Dr.M S Pushkala</option>
+        <option name="doctors1">Dr.R Kaladevi</option>
+        <option name="doctors1">Dr.M Banu Priya</option>
+        <option name="doctors1">Dr.Vishal Rao</option>
+      </select>
+      </div>
+    
+    <div class="input-names">
+      <input type="text" placeholder="Your Name" name="name">
+      <input class="maill" type="email" placeholder="Your Email" name="mail">
+    </div>
+
+    <div class="appointment-duration">
+      <input type="date" class="Appointment-Date" placeholder="Appointment Date" name="date">
+    </div>
+   <input class="appointment-button" type="submit">
+  </form>
+</div>
+
+   </div>
+
+
+
+  </div>
+</div>
+<%- include('./partials/footer.ejs') %>
+
+  <!-- end info section -->
+
+  <!-- footer section -->
+  <section class="container-fluid footer_section">
+    <p>
+      &copy; 2023 All Rights Reserved. Design by
+      <a href="/">HealthNexus</a>
+    </p>
+  </section>
+  <!-- footer section -->
+
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
+  </script>
+
+</body>
+
+</html>
