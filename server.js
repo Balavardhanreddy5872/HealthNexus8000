@@ -848,6 +848,7 @@ app.post('/message',async(req,res)=>{
 
 
     await Blog.insertMany([blog]);
+    res.render('adminportal');
 
 });
 app.get('/msgdisplay',(req,res)=>{
@@ -883,6 +884,15 @@ app.post('/revsub',(req,res)=>{
     })
 
 });
+app.get('/reviewdisplay',(req,res)=>{
+  Reviews.find({})
+  .then((x) => {
+      res.render('reviewdisplay', { x })
+      console.log(x);
+  }).catch((y) => {
+      console.log(y);
+  })
+})
 
 app.get('/doctors',(req,res)=>{
     res.render('Doctors')
@@ -1042,3 +1052,8 @@ app.post('/updatemedicine', async(req, res) => {
     });
   // });
 });
+
+app.get('/blog',(req,res)=>{
+
+  res.render('blog');
+})
