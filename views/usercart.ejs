@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HelathNexus</title>
-    <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-      <link href="/css/style.css" rel="stylesheet" />
-      <link href="/css/responsive.css" rel="stylesheet" />
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/responsive.css" rel="stylesheet" />
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
     <style>
-      h1{
+      h1 {
         text-align: center;
       }
       * {
@@ -20,126 +26,150 @@
         margin: 0;
         padding: 0;
       }
-      
+
       body {
         font-family: Arial, sans-serif;
         font-size: 16px;
         line-height: 1.5;
       }
-      
+
       .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
       }
-      
+
       table {
         width: 100%;
-    
       }
-      
-      th, td {
+
+      th,
+      td {
         border: 1px solid #ddd;
         padding: 10px;
         text-align: left;
       }
-      
+
       th {
         background-color: #f2f2f2;
       }
-      button{
-        padding: 3px 50px; 
+      button {
+        padding: 3px 50px;
         background-color: aqua;
       }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <!-- cart.ejs -->
 
+    <div class="hero_area">
+      <%- include('./partials/navbar3.ejs') %>
+      <h1>CART</h1>
+      <br />
+      <br />
+      <table border="5" style="height: 30vh">
+        <thead style="height: 20vh">
+          <tr style="background-color: aqua">
+            <th>Product</th>
+            <th style="width: 100px">Price</th>
+            <th style="width: 100px">Quantity</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% let subtotal = 0 %> <% x.forEach((y) => {%>
+          <tr>
+            <td style="text-align: center"><%= y.name %></td>
+            <td style="text-align: center"><%= y.price %></td>
+            <td>
+              <% let quantity = y.quantity || 1 %>
+              <input
+                type="number"
+                name="quantity"
+                value="<%= quantity %>"
+                min="1"
+                max="10"
+                onchange="updateQuantity('<%= y.name %>', this.value, <%= y.price %>)"
+              />
+            </td>
+            <td>
+              <button onclick="deleteItem('<%= y.name %>')">delete</button>
+            </td>
+          </tr>
+          <% subtotal += y.price * Number(quantity) %> <% }) %>
+        </tbody>
 
-<!-- cart.ejs -->
-
-<div class="hero_area">
-  <%- include('./partials/navbar4.ejs') %>
-  <h1>CART</h1>
-  <br>
-  <br>
-  <table border="5" style="height: 30vh">
-    <thead style="height: 20vh;">
-      <tr style="background-color: aqua;">
-        <th>Product</th>
-        <th style="width: 100px;">Price</th>
-        <th style="width: 100px;">Quantity</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% let subtotal = 0 %>
-      <% x.forEach((y)=>{%> 
-      <form action="/delete" method="post"> 
-        <tr>
-          <input type="hidden" name="name" value="<%=y.name%>">
-          <td style="text-align: center;"><%=y.name%></td>
-          <input type="hidden" name="price" value="<%=y.price%>">
-          <td style="text-align: center;"><%=y.price%></td>
-          <td>
-            <% let quantity = y.quantity || 1 %>
-            <input type="number" name="quantity" value="<%= quantity %>" min="1" max="10" onchange= "updateSubtotal(this , <%= y.price %>)">
-          </td>
-          <td>
-            <button type="submit">delete</button>
-          </td>
-        </tr>
+        <tfoot>
+          <tr>
+            <td colspan="2"><strong>Total:</strong></td>
+            <td id="total"><%= subtotal %></td>
+          </tr>
+        </tfoot>
+      </table>
+      <br />
+      <form method="get" action="/deletecart">
+        <button
+          type="submit"
+          style="text-align: center; background-color: aqua"
+        >
+          Buy Now
+        </button>
       </form>
-        <% subtotal += y.price * Number(quantity) %>
-      <% }) %>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan="2"><strong>Total:</strong></td>
-        <td id="total"><%= subtotal %></td>
-      </tr>
-    </tfoot>
-  </table>
-  <br>
-  <form method="get" action="/deletecart">
-  <button  type="submit"style="text-align: center; background-color: aqua;">Buy Now</button>
-  </form>
-  <br>
-  <br>
-  <br>
-  <script>
-    function updateSubtotal(input, price) {
-      let quantity = Number(input.value);
-      if (isNaN(quantity) || quantity < 1 || quantity > 10) {
-        quantity = 1;
-        input.value = quantity;
-      }
-      let subtotal = price * quantity;
-      let total = document.getElementById("total");
-      total.innerHTML = subtotal + Number(total.innerHTML) - (price * Number(input.defaultValue));
-      input.defaultValue = quantity;
-    }
-    function buyNow() {
-      let total = document.getElementById("total");
-      total.innerHTML = "0";
-      let inputs = document.getElementsByName("quantity");
-      for (let i = 0; i < inputs.length; i++) {
-        inputs[i].value = "1";
-        inputs[i].defaultValue = "1";
-      }
-      x = []; // Clear the array of products
-      let tbody = document.querySelector("tbody");
-      while (tbody.firstChild) {
-        tbody.removeChild(tbody.firstChild);
-      }
-      window.location.href = "/display2"; // Redirect to another page
-    }
-  </script>
-  <%- include('./partials/footer.ejs') %>
-</div>
+      <br />
+      <br />
+      <br />
+      <script>
+        function updateSubtotal(input, price) {
+          let quantity = Number(input.value);
+          if (isNaN(quantity) || quantity < 1 || quantity > 10) {
+            quantity = 1;
+            input.value = quantity;
+          }
+          let subtotal = price * quantity;
+          let total = document.getElementById("total");
+          total.innerHTML =
+            subtotal +
+            Number(total.innerHTML) -
+            price * Number(input.defaultValue);
+          input.defaultValue = quantity;
+        }
+        function buyNow() {
+          let total = document.getElementById("total");
+          total.innerHTML = "0";
+          let inputs = document.getElementsByName("quantity");
+          for (let i = 0; i < inputs.length; i++) {
+            inputs[i].value = "1";
+            inputs[i].defaultValue = "1";
+          }
+          x = []; // Clear the array of products
+          let tbody = document.querySelector("tbody");
+          while (tbody.firstChild) {
+            tbody.removeChild(tbody.firstChild);
+          }
+          window.location.href = "/display2"; // Redirect to another page              
+        }
+      </script>
+       <script>
+        // You can include your JavaScript code here
+        // For example, to fetch the user's cart data
+        const authToken = localStorage.getItem('authToken'); // Retrieve the auth token from local storage
 
-
-
-
-</body>
+        fetch('/usercart', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${authToken}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const cartItems = data.cartItems; // Assuming your response contains cartItems
+            // Populate the cart table with cartItems here
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    </script>
+      <%- include('./partials/footer.ejs') %>
+    </div>
+  </body>
 </html>

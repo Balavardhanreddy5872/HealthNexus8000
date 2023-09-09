@@ -7,7 +7,7 @@
   font-family: "Maven Pro", sans-serif;
 }
 .wrapper {
-  height: 100vh;
+  height: 70vh;
 }
 .myColor {
   background-image: linear-gradient(to right, #f83600 50%, #f9d423 150%);

@@ -1,23 +1,25 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const ejs = require('ejs');
 const port = 8000;
 const mongoose = require('mongoose')
 const alert = require('alert')
-var user;
-const routes =  require("./routes/router");
+const routes = require("./routes/router");
 const { ObjectId } = require('mongodb');
+const bcrypt = require('bcryptjs');
+var jwt = require('jsonwebtoken');
+const fectuser = require('./middleware/fetchuser');
+
+const JWT_sceret = 'bvr12345'
 
 app.use(routes);
 
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
-const { get } = require("http");
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('views',path.join(__dirname,'views'));
-app.set('view engine','ejs')
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 url = 'mongodb://0.0.0.0/HealthNexus'
 mongoose.connect(url);
@@ -25,19 +27,195 @@ mongoose.connect(url);
 const con = mongoose.connection;
 
 con.on('open', () => {
-    console.log()
+  console.log()
 })
 
-con.on('error', (err)=> {
-    console.log(err);
+con.on('error', (err) => {
+  console.log(err);
 })
 
 
-app.listen(port, function () {
-    console.log("server is runnig on the port 8000");
+
+
+const Token = require('./models/Token');
+const User = require('./models/user');
+
+app.use(express.urlencoded({ extended: true }));
+
+// Route to display the user's cart
+app.get('/usercart', fectuser, async (req, res) => {
+  try {
+    const userId = req.user.id; // Assuming your user schema has an 'id' field
+
+    // Fetch the user's cart based on the userId
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Access the user's cart
+    const cartItems = user.cart;
+
+    // Send the cart items as a JSON response
+    res.json({ cartItems });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'An error occurred' });
+  }
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+// Completed succesful  signup to ajax 
+app.post("/signup", async (req, res) => {
+  const { name, email, password } = req.body;
+  
+  try {
+    const existingUser = await User.findOne({ email });
+    
+    if (existingUser) {
+      return res.status(400).json({ error: "User already exists" });
+    }
+    
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ name, email, password: hashedPassword });
+    await newUser.save();
+
+    const authToken = jwt.sign({ userId: newUser._id }, JWT_sceret); 
+
+    const tokenInstance = new Token({
+      token: authToken,
+      user: newUser._id
+    });
+    await tokenInstance.save();
+
+    res.status(201).json({ authToken });
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
+
+
+// complted succesful login to ajax 
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    const passwordMatch = bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    // Create a new token instance and associate it with the user
+    const authToken = jwt.sign({ userId: user._id }, JWT_sceret); 
+
+    const tokenInstance = new Token({
+      token: authToken,
+      user: user._id
+    });
+    await tokenInstance.save();
+
+    res.status(200).json({ authToken });
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
+
+
+
+
+app.listen(port, function () {
+  console.log("Server is running on port 8000");
+});
+
+const medicine1 = require('./models/medicine1');
+app.get("/swiper_content",(req, res) => {
+  medicine1.find({}) 
+  .then((x) => {
+      res.render('swiper_content', { x })
+  }).catch((y) => {
+      console.log(y);
+      console.log('error in index')
+  })
+
+});
+
+// Import necessary modules and models
+const Cart = require('./models/cart'); // Replace with actual path to the Cart model
+
+// Define a function to extract user ID from token
+function getUserIdFromToken(req) {
+  const token = req.headers.authorization.split(' ')[1]; // Assuming token is sent in the "Bearer" format
+  const decodedToken = jwt.verify(token, 'your-secret-key'); // Replace with your actual secret key
+  return decodedToken.userId;
+}
+
+// Route to update a cart item's quantity
+app.post('/updateCartItem', async (req, res) => {
+  const { name, quantity } = req.body;
+
+  try {
+    const userId = getUserIdFromToken(req);
+    const user = await User.findById(userId);
+
+    // Update the cart item's quantity
+    const cartItem = user.cart.find(item => item.name === name);
+    if (cartItem) {
+      cartItem.quantity = parseInt(quantity);
+    }
+
+    await user.save();
+
+    // Calculate new subtotal based on updated quantity and price
+    const newSubtotal = user.cart.reduce((subtotal, item) => subtotal + (item.price * item.quantity), 0);
+
+    res.json({ newSubtotal }); // Send updated data back to the client
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+// Route to delete a cart item
+app.post('/deleteCartItem', async (req, res) => {
+  const { name } = req.body;
+
+  try {
+    const userId = getUserIdFromToken(req);
+    const user = await User.findById(userId);
+
+    // Delete the cart item from the user's cart
+    user.cart = user.cart.filter(item => item.name !== name);
+    await user.save();
+
+    // Delete the cart item from the Cart collection (if needed)
+    await Cart.deleteOne({ name });
+
+    res.json({ message: 'Item deleted' }); // Send response back to the client
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
 
 
 
@@ -710,294 +888,294 @@ app.listen(port, function () {
 
 const Labtests = require('./models/labtest')
 const medicine = require('./models/medicine')
-const Cart = require('./models/cart')
-const User = require('./models/user')
+// const Cart = require('./models/cart')
+// const User = require('./models/user')
 const Blog = require('./models/blog')
 const Reviews = require('./models/reviews')
 
-app.post('/labtests',  async (req,res)=> {
-    const data= {
-        name : req.body.name,
-        number: req.body.number,
-        formfill3: req.body.formfill3,
-        package:req.body.package,
-        test:req.body.test 
-    }
+app.post('/labtests', async (req, res) => {
+  const data = {
+    name: req.body.name,
+    number: req.body.number,
+    formfill3: req.body.formfill3,
+    package: req.body.package,
+    test: req.body.test
+  }
   console.log(data)
-    await  Labtests.insertMany([data])
-    
-    res.render('display3',{data}); 
-    
+  await Labtests.insertMany([data])
+
+  res.render('display3', { data });
+
 });
 
 
-app.post('/register', (req, res) => {
-    let login = {
-        name : req.body.name,
-        email : req.body.email,
-        password: req.body.password
-        
-    }
-    
-    con.collection('user').insertOne(login)
-    .then(result=>{
-        res.render('login', { user : result , successMsg : 'signup '  });
-        })
+// app.post('/register', (req, res) => {
+//     let login = {
+//         name : req.body.name,
+//         email : req.body.email,
+//         password: req.body.password
 
-    .catch(err => console.log(err));
-})
-app.post("/login", async function(req, res){
-    try {
-         con.collection('user').findOne({ email: req.body.email }).then(result=>
-            { 
-                if (result) {
-                    const resu = req.body.password === result.password;
-                    if(resu) {
-                         user=result;
-                      res.render('homeuser',{user});
-                    } else {
-                      res.status(400).json({ error: "password doesn't match" });
-                    }
-                  } else {
-                    res.status(400).json({ error: "User doesn't exist,signup please!" });
-                  }
-            })
-       
-      } catch (error) {
-        res.status(400).json({ error });
-      }
-});
+//     }
 
-app.post("/adminportal", async function(req, res){
-    try {
-        con.collection('Admin').findOne({ email: req.body.email }).then(result=>
-            { 
-                if (result) {
-                    const resu = req.body.password === result.password;
-                    if(resu) {
-                      res.render("adminportal");
-                    } else {
-                      res.status(400).json({ error: "password doesn't match" });
-                    }
-                  } else {
-                    alert('user doesnot exists');
-                  }
-            })
-       
-      } catch (error) {
-        res.status(400).json({ error });
+//     con.collection('user').insertOne(login)
+//     .then(result=>{
+//         res.render('login', { user : result , successMsg : 'signup '  });
+//         })
+
+//     .catch(err => console.log(err));
+// })
+// app.post("/login", async function(req, res){
+//     try {
+//          con.collection('user').findOne({ email: req.body.email }).then(result=>
+//             { 
+//                 if (result) {
+//                     const resu = req.body.password === result.password;
+//                     if(resu) {
+//                          user=result;
+//                       res.render('homeuser',{user});
+//                     } else {
+//                       res.status(400).json({ error: "password doesn't match" });
+//                     }
+//                   } else {
+//                     res.status(400).json({ error: "User doesn't exist,signup please!" });
+//                   }
+//             })
+
+//       } catch (error) {
+//         res.status(400).json({ error });
+//       }
+// });
+
+app.post("/adminportal", async function (req, res) {
+  try {
+    con.collection('Admin').findOne({ email: req.body.email }).then(result => {
+      if (result) {
+        const resu = req.body.password === result.password;
+        if (resu) {
+          res.render("adminportal");
+        } else {
+          res.status(400).json({ error: "password doesn't match" });
+        }
+      } else {
+        alert('user doesnot exists');
       }
+    })
+
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 });
 app.get("/productinfo", function (req, res) {
-    
-    let search = req.query.search
 
-    medicine.find({name: search})
-     .then((x)=>{console.log('Found search results')
+  let search = req.query.search
+
+  medicine.find({ name: search })
+    .then((x) => {
+      console.log('Found search results')
       console.log(x)
-      res.render('productinfo',{x})})
-    .catch((y)=>console.log("search results not found"))
-    
-}); 
+      res.render('productinfo', { x })
+    })
+    .catch((y) => console.log("search results not found"))
 
-app.post("/update",async function (req,res){
-    await  con.collection("user").updateOne({email:req.body.email},{$set:{name:req.body.name,email:req.body.email,password:req.body.password}}).then(result=>{
-         
-         res.render("homeuser")
-      })
-      
 });
 
-app.post("/delete",function(req,res){
-    Cart.deleteOne({name:req.body.name})
-    .then(function(){
-        res.redirect("/usercart");
+app.post("/update", async function (req, res) {
+  User.updateOne({ email: req.body.email }, { $set: { name: req.body.name, email: req.body.email, password: req.body.password } }).then(result => {
+
+    res.render("index")
+  })
+
+});
+
+app.post("/delete", function (req, res) {
+  Cart.deleteOne({ name: req.body.name })
+    .then(function () {
+      res.redirect("/usercart");
     })
-    .catch((err)=>{
-        console.log(err);
+    .catch((err) => {
+      console.log(err);
     });
 });
 
 app.get('/update', (req, res) => {
-    con.collection('user').findOne({ email: user.email }).then(result => {
-        if (result) {
-            user = result;
-            res.render("updatedetails", { user });
-        }
-    })
+  User.findOne({ email: req.body.email }).then(result => {
+    if (result) {
+      User = result;
+      res.render("updatedetails", { User });
+    }
+  })
 });
 
-app.post("/deleteuser",function(req,res){
-    User.deleteOne({name:req.body.name})
-    .then(function(){
-        res.redirect("/userdisplay");
+app.post("/deleteuser", function (req, res) {
+  User.deleteOne({ name: req.body.name })
+    .then(function () {
+      res.redirect("/userdisplay");
     })
-    .catch((err)=>{
-        console.log(err);
+    .catch((err) => {
+      console.log(err);
     });
 });
 
-app.post('/message',async(req,res)=>{
+app.post('/message', async (req, res) => {
 
-    console.log(req.body)
-    const blog ={
-        name : req.body.name,
-        subject : req.body.subject,
-        message : req.body.message
-    }
-
-
-    await Blog.insertMany([blog]);
-    res.render('adminportal');
-
-});
-app.get('/msgdisplay',(req,res)=>{
-    Blog.find({})
-    .then((x) => {
-        res.render('msgdisplay', { x })
-        console.log(x);
-    }).catch((y) => {
-        console.log(y);
-    })
-})
-app.get("/review",(req,res)=>{
-    res.render('review');
-})
-app.post('/revsub',(req,res)=>{
-
-    console.log(req.body)
-    const revsub ={
-        name : req.body.name,
-        email : req.body.email,
-        rating : req.body.rating,
-        review: req.body.review
-    }
+  console.log(req.body)
+  const blog = {
+    name: req.body.name,
+    subject: req.body.subject,
+    message: req.body.message
+  }
 
 
-    Reviews.insertMany([revsub]);
-    Reviews.find({})
-    .then((x) => {
-        res.render('reviewdisplay', { x })
-        console.log(x);
-    }).catch((y) => {
-        console.log(y);
-    })
+  await Blog.insertMany([blog]);
+  res.render('adminportal');
 
 });
-app.get('/reviewdisplay',(req,res)=>{
+app.get('/msgdisplay', (req, res) => {
+  Blog.find({})
+    .then((x) => {
+      res.render('msgdisplay', { x })
+      console.log(x);
+    }).catch((y) => {
+      console.log(y);
+    })
+})
+app.get("/review", (req, res) => {
+  res.render('review');
+})
+app.post('/revsub', (req, res) => {
+
+  console.log(req.body)
+  const revsub = {
+    name: req.body.name,
+    email: req.body.email,
+    rating: req.body.rating,
+    review: req.body.review
+  }
+
+
+  Reviews.insertMany([revsub]);
   Reviews.find({})
-  .then((x) => {
+    .then((x) => {
       res.render('reviewdisplay', { x })
       console.log(x);
-  }).catch((y) => {
+    }).catch((y) => {
       console.log(y);
-  })
-})
+    })
 
-app.get('/doctors',(req,res)=>{
-    res.render('Doctors')
-})
-app.get('/Doctorreg',(req,res)=>{
-    res.render('Doctorreg')
-})
-app.get('/doctorlogin',(req,res)=>{
-    res.render('Doctorlogin')
 });
-app.get("/Doctorsportal", function(req,res) {
-    res.render('Doctorsportal')
+app.get('/reviewdisplay', (req, res) => {
+  Reviews.find({})
+    .then((x) => {
+      res.render('reviewdisplay', { x })
+      console.log(x);
+    }).catch((y) => {
+      console.log(y);
+    })
+})
+
+app.get('/doctors', (req, res) => {
+  res.render('Doctors')
+})
+app.get('/Doctorreg', (req, res) => {
+  res.render('Doctorreg')
+})
+app.get('/doctorlogin', (req, res) => {
+  res.render('Doctorlogin')
+});
+app.get("/Doctorsportal", function (req, res) {
+  res.render('Doctorsportal')
 });
 
 
 
-app.post('/doctorlogin',  async (req,res)=> {
-    const data= {
-        Name : req.body.Name,
-        mail: req.body.Email,
-        date_of_birth: req.body.DOB,
-        City: req.body.City,
-        Country: req.body.Country,
-        password: req.body.password, 
-        Language: req.body.Language,
-        Medical_school: req.body.MedSch,
-        MedicalId: req.body.MedID,
-        Specility: req.body.Specility
-    }
- 
-    // await  Doctors.insert([data])
-        
-           con.collection("Doctorreg").insertOne(data)
-           .then(result=>{
-                res.render('Doctorlogin', { user : result , successMsg : 'registered successfully '  });
-                })  
-                .catch(err => console.log(err)); 
-        
-    }) ;
+app.post('/doctorlogin', async (req, res) => {
+  const data = {
+    Name: req.body.Name,
+    mail: req.body.Email,
+    date_of_birth: req.body.DOB,
+    City: req.body.City,
+    Country: req.body.Country,
+    password: req.body.password,
+    Language: req.body.Language,
+    Medical_school: req.body.MedSch,
+    MedicalId: req.body.MedID,
+    Specility: req.body.Specility
+  }
+
+  // await  Doctors.insert([data])
+
+  con.collection("Doctorreg").insertOne(data)
+    .then(result => {
+      res.render('Doctorlogin', { user: result, successMsg: 'registered successfully ' });
+    })
+    .catch(err => console.log(err));
+
+});
 
 
 
 
-app.post('/doctor',  async (req,res)=> {
-const data= {
-        doct : req.body.doct,
-        doctors1: req.body.doctors1,
-        name: req.body.name,
-        mail: req.body.mail,
-        date:req.body.date,
-        time: req.body.time 
-    }
- 
+app.post('/doctor', async (req, res) => {
+  const data = {
+    doct: req.body.doct,
+    doctors1: req.body.doctors1,
+    name: req.body.name,
+    mail: req.body.mail,
+    date: req.body.date,
+    time: req.body.time
+  }
 
-    con.collection("Doctors").insertOne(data)  
-    res.render("Doctors2");  
 
-    
-    
+  con.collection("Doctors").insertOne(data)
+  res.render("Doctors2");
+
+
+
 });
 
 var use;
-app.post("/Doctorsportal",  function(req, res){  
-    try {
-         con.collection('Doctorreg').findOne({ mail: req.body.email }).then(async result=>
-            { 
-                let us = result;
-                
-                if (us) {
-                    const resu = req.body.password === us.password;
-                    if(resu) {
-                         use=result;
-                         const k= await con.collection("Doctors").find().toArray() 
-                        
-                      res.render("Doctorsportal",{user:use,patient:k});
-                    } else {
-                      res.status(400).json({ error: "password doesn't match" });
-                    }
-                  } else {
-                    res.status(400).json({ error: "User doesn't exist,signup please!" });
-                  }
-            })
-       
-      } catch (error) {
-        res.status(400).json({ error });
+app.post("/Doctorsportal", function (req, res) {
+  try {
+    con.collection('Doctorreg').findOne({ mail: req.body.email }).then(async result => {
+      let us = result;
+
+      if (us) {
+        const resu = req.body.password === us.password;
+        if (resu) {
+          use = result;
+          const k = await con.collection("Doctors").find().toArray()
+
+          res.render("Doctorsportal", { user: use, patient: k });
+        } else {
+          res.status(400).json({ error: "password doesn't match" });
+        }
+      } else {
+        res.status(400).json({ error: "User doesn't exist,signup please!" });
       }
+    })
+
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 });
 
 app.post('/deletedoctor', (req, res) => {
   const id = req.body._id;
   // Use MongoDB to delete the row with the specified ID
-  con.collection('Doctors').deleteOne({_id: new ObjectId(id)}, (err, result) => {
+  con.collection('Doctors').deleteOne({ _id: new ObjectId(id) }, (err, result) => {
     if (err) {
       console.log(err);
       // Handle the error here
       res.status(500).send('Error deleting row');
     } else {
       console.log('Row deleted');
-      
+
       con.collection('Doctors').find().toArray()
-      .then(result=>{
-       res.render('Doctorsportal',{patient:result,user:use});
-      })
+        .then(result => {
+          res.render('Doctorsportal', { patient: result, user: use });
+        })
       // Handle the success case here
-      
+
     }
   });
 });
@@ -1005,9 +1183,9 @@ app.post('/deletedoctor', (req, res) => {
 //
 //ADMIN PORTAL OPERATIONS
 //ADMIN PORTAL OPERATIONS
-app.get('/show-medicine',async (req,res)=>{
+app.get('/show-medicine', async (req, res) => {
   const data = await medicine.find({})
-  res.render('medicinedisplay',{data})
+  res.render('medicinedisplay', { data })
 })
 var name;
 
@@ -1021,39 +1199,39 @@ app.post('/add', async (req, res) => {
     price1: parseFloat(req.body.price1),
     price2: parseFloat(req.body.price2)
   };
-  name=req.body.name;
- await con.collection("medicines").insertOne(newProduct)
-  .then(result=>{
-     res.render("adminportal")
-  })
-  .catch(err => console.log(err));
+  name = req.body.name;
+  await con.collection("medicines").insertOne(newProduct)
+    .then(result => {
+      res.render("adminportal")
+    })
+    .catch(err => console.log(err));
 })
 
 app.post('/deletemedicine', async (req, res) => {
-  await con.collection("medicines").deleteOne({_id: new mongoose.Types.ObjectId(req.body.id)})
+  await con.collection("medicines").deleteOne({ _id: new mongoose.Types.ObjectId(req.body.id) })
   res.redirect('/show-medicine')
 });
 
 // Update data in MongoDB
-app.post('/updatemedicine', async(req, res) => {
+app.post('/updatemedicine', async (req, res) => {
   // MongoClient.connect(url, (err, db) => {
   //   if (err) throw err;
   //   const dbo = db.db('mydb');
   //   const id = {_id: new mongoose.Types.ObjectID(req.body.id)};
-    const updatedData = {
-      name: req.body.name,
-      price1: req.body.price1,
-      price2: req.body.price2
-    };
-   await con.collection("medicines").updateOne({_id: new mongoose.Types.ObjectId(req.body.id)}, {$set: updatedData}, (err, result) => {
-      // if (err) throw err;
-      res.redirect('/show-medicine');
-      // db.close();
-    });
+  const updatedData = {
+    name: req.body.name,
+    price1: req.body.price1,
+    price2: req.body.price2
+  };
+  await con.collection("medicines").updateOne({ _id: new mongoose.Types.ObjectId(req.body.id) }, { $set: updatedData }, (err, result) => {
+    // if (err) throw err;
+    res.redirect('/show-medicine');
+    // db.close();
+  });
   // });
 });
 
-app.get('/blog',(req,res)=>{
+app.get('/blog', (req, res) => {
 
   res.render('blog');
 })

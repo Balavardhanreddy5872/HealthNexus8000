@@ -1,17 +1,19 @@
-const { time } = require('console');
-const express = require('express')
-const mongoose = require('mongoose')
-const app = express();
-const path = require('path');
-app.use(express.urlencoded({ extended: false }));
+// user.js (User Schema)
+const mongoose = require('mongoose');
 
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String,
+  // Other user properties
+  cart: [  // This array will store cart items
+    {
+      name: String,
+      price: Number
+    }
+  ]
+});
 
-const users = new mongoose.Schema({
-   name:{type:String},
-   email:{type:String},
-   password:{type :String}
-},{collection: 'user'})
+const User = mongoose.model('User', userSchema);
+module.exports = User;
 
-const User = mongoose.model('users',users)
-
-module.exports = User 

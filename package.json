@@ -1,15 +1,19 @@
 {
   "dependencies": {
     "alert": "^5.1.4",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
     "expres": "^0.0.5",
     "express": "^4.18.2",
     "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^9.0.1",
     "mongodb": "^5.3.0",
     "mongoose": "^7.0.3",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.9.1",
     "nodemon": "^2.0.22",
     "post": "^0.0.1",
     "sqlite3": "^5.1.6"

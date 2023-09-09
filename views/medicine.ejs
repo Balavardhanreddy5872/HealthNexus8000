@@ -1,6 +1,7 @@
 <!-- This is an HTML document containing various links to external stylesheets and scripts -->
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,7 +15,8 @@
   <title>HealthNexus</title>
   <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg">
   <!-- Owl Carousel stylesheet -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
   <!-- Font Awesome stylesheet -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Bootstrap core CSS -->
@@ -28,219 +30,266 @@
   <link href="/css/responsive.css" rel="stylesheet" />
   <!-- Medicine style -->
   <link href="/css/medicine.css" rel="stylesheet" />
+  <script src="js/cart.js"></script>
 </head>
+
 <body>
   <div class="hero_area">
     <!-- Navigation bar -->
     <%- include('./partials/navbar3.ejs') %>
-<!-- The code is a web page that displays a list of medicines for sale. -->
-<div id="MedPage">
-  <div id="info">
-    <!-- A section with a header and a sub-header that describes the functionality of the page. -->
-    <p class="cat">Find Your Prescription Medicines</p>
-    <h1 class="h4">Shop by Drug Category</h1>
-    <br>
-    <!-- A table with links to different drug categories. -->
-    <table>
-      <thead>
-        <tr>
-          <td><a href="#A">A</a></td> 
-          <td><a href="#B">B</a></td> 
-          <td><a href="#C">C</a></td> 
-          <td><a href="#D">D</a></td> 
-          <td><a href="#E">E</a></td>
-          <td><a href="#F">F</a></td>
-          <td><a href="#G">G</a></td>
-          <td><a href="#H">H</a></td>
-          <td><a href="#I">I</a></td>
-          <td><a href="#K">K</a></td>
-          <td><a href="#L">L</a></td> 
-          <td><a href="#M">M</a></td> 
-          <td><a href="#N">N</a></td> 
-          <td><a href="#O">O</a></td> 
-          <td><a href="#P">P</a></td>
-          <td><a href="#R">R</a></td>
-          <td><a href="#S">S</a></td> 
-          <td><a href="#U">U</a></td> 
-          <td><a href="#V">V</a></td> 
-          <td><a href="#W">W</a></td>
-          <td><a href="#W">X</a></td>
-          <td><a href="#W">Y</a></td>
-          <td><a href="#W">Z</a></td>
-          <td id="all">ALL</td>
-        </tr>
-      </thead>
-    </table>
-  </div>
-
-  <!-- A section that displays medicine images and information sorted alphabetically. -->
-  <h2 class="product-category">Alphabetical Order</h2>
-  <% for(let i=0;i<list.length;i++) { %> 
-  <section class="product"> 
-    <!-- A sub-header that displays the current alphabet being displayed. -->
-    <h2 class="product-category left-alp" id="<%=String.fromCharCode('A'.charCodeAt(0)+i)%>"><%=String.fromCharCode('A'.charCodeAt(0)+i)%></h2>
-    <!-- Buttons to navigate to the previous and next alphabet. -->
-    <button class="pre-btn"><img src="images/arrow.png" alt=""></button>
-    <button class="nxt-btn"><img src="images/arrow.png" alt=""></button>
-
-    <!-- A container for the medicine images and information. -->
-    <div class="product-container">
-    <%  for(let j=0;j<list[i].length;j++) { %>
-    <!-- A form to add the medicine to the shopping cart. -->
-    <form action="/cart" method="get">
-      <!-- A card displaying the medicine image, name, price, and discount. -->
-      <div class="product-card">
-        <div class="product-image">
-          <span class="discount-tag">50% off</span>
-          <img src="<%= list[i][j].image %>" class="product-thumb" alt="">
+      <!-- The code is a web page that displays a list of medicines for sale. -->
+      <div id="MedPage">
+        <div id="info">
+          <!-- A section with a header and a sub-header that describes the functionality of the page. -->
+          <p class="cat">Find Your Prescription Medicines</p>
+          <h1 class="h4">Shop by Drug Category</h1>
+          <br>
+          <!-- A table with links to different drug categories. -->
+          <table>
+            <thead>
+              <tr>
+                <td><a href="#A">A</a></td>
+                <td><a href="#B">B</a></td>
+                <td><a href="#C">C</a></td>
+                <td><a href="#D">D</a></td>
+                <td><a href="#E">E</a></td>
+                <td><a href="#F">F</a></td>
+                <td><a href="#G">G</a></td>
+                <td><a href="#H">H</a></td>
+                <td><a href="#I">I</a></td>
+                <td><a href="#K">K</a></td>
+                <td><a href="#L">L</a></td>
+                <td><a href="#M">M</a></td>
+                <td><a href="#N">N</a></td>
+                <td><a href="#O">O</a></td>
+                <td><a href="#P">P</a></td>
+                <td><a href="#R">R</a></td>
+                <td><a href="#S">S</a></td>
+                <td><a href="#U">U</a></td>
+                <td><a href="#V">V</a></td>
+                <td><a href="#W">W</a></td>
+                <td><a href="#W">X</a></td>
+                <td><a href="#W">Y</a></td>
+                <td><a href="#W">Z</a></td>
+                <td id="all">ALL</td>
+              </tr>
+            </thead>
+          </table>
         </div>
-        <div class="product-info">
-            <h2 class="product-brand"><input type="hidden" name="name" value="<%= list[i][j].name %>"><%=  list[i][j].name %></h2>
-            <!-- <p class="product-short-description">Atrest 12.5mg Tablet 10'S</p> -->
-            <input type="hidden" name="price" value="<%= list[i][j].price1 %>">
-            <span class="price">&#8377 <%= list[i][j].price1 %></span><span class="actual-price">&#8377 <%= list[i][j].price2 %></span>
-          </div>
-            <button  type="submit" style="margin: 10px 30px; width: 80%; background-color: #32aeb1;">Add to Cart</button>
-      </div>
-      </form>
-      
-        <% } %>
-      </div>
-</section>
-<% } %>
-<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
-<!-- end here -->
-<script src="js/script1.js"></script>
-    <!-- end of image section -->
-  <!-- info section -->
-  <section class="info_section layout_padding2">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <div class="info_contact">
-            <h4>
-              Contact23
-            </h4>
-            <div class="box">
-              <div class="img-box">
-                <img src="images/telephone-symbol-button.png" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  +01 123567894
-                </h6>
-              </div>
+
+        <!-- A section that displays medicine images and information sorted alphabetically. -->
+        <h2 class="product-category">Alphabetical Order</h2>
+        <% for(let i=0;i<list.length;i++) { %>
+          <section class="product">
+            <!-- A sub-header that displays the current alphabet being displayed. -->
+            <h2 class="product-category left-alp" id="<%=String.fromCharCode('A'.charCodeAt(0)+i)%>">
+              <%=String.fromCharCode('A'.charCodeAt(0)+i)%>
+            </h2>
+            <!-- Buttons to navigate to the previous and next alphabet. -->
+            <button class="pre-btn"><img src="images/arrow.png" alt=""></button>
+            <button class="nxt-btn"><img src="images/arrow.png" alt=""></button>
+
+            <!-- A container for the medicine images and information. -->
+            <div class="product-container">
+              <% for (let j=0; j < list[i].length; j++) { %>
+                <!-- A form to add the medicine to the shopping cart. -->
+                <form class="add-to-cart-form" action="/cart" method="get">
+                  <!-- A card displaying the medicine image, name, price, and discount. -->
+                  <div class="product-card">
+                    <div class="product-image">
+                      <span class="discount-tag">50% off</span>
+                      <img src="<%= list[i][j].image %>" class="product-thumb" alt="">
+                    </div>
+                    <div class="product-info">
+                      <h2 class="product-brand">
+                        <input type="hidden" name="name" value="<%= list[i][j].name %>">
+                        <%= list[i][j].name %>
+                      </h2>
+                      <input type="hidden" name="price" value="<%= list[i][j].price1 %>">
+                      <span class="price">&#8377 <%= list[i][j].price1 %></span>
+                      <span class="actual-price">&#8377 <%= list[i][j].price2 %></span>
+                    </div>
+                    <!-- Store the authentication token in a hidden input field -->
+                    <input type="hidden" name="token" value="" class="authTokenInput">
+                    <button type="submit" style="margin: 10px 30px; width: 80%; background-color: #32aeb1;">Add to
+                      Cart</button>
+                  </div>
+                </form>
+                <% } %>
             </div>
-            <div class="box">
-              <div class="img-box">
-                <img src="images/email.png" alt="">
+          </section>
+          <% } %> */
+            <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+            <!-- end here -->
+            <script src="js/script1.js"></script>
+            <!-- end of image section -->
+            <!-- info section -->
+            <section class="info_section layout_padding2">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="info_contact">
+                      <h4>
+                        Contact23
+                      </h4>
+                      <div class="box">
+                        <div class="img-box">
+                          <img src="images/telephone-symbol-button.png" alt="">
+                        </div>
+                        <div class="detail-box">
+                          <h6>
+                            +01 123567894
+                          </h6>
+                        </div>
+                      </div>
+                      <div class="box">
+                        <div class="img-box">
+                          <img src="images/email.png" alt="">
+                        </div>
+                        <div class="detail-box">
+                          <h6>
+                            demo@gmail
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="info_menu">
+                      <h4>
+                        Menu
+                      </h4>
+                      <ul class="navbar-nav  ">
+                        <li class="nav-item active">
+                          <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="about.html"> About </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="medicine.html"> Medicine </a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="buy.html"> Online Buy </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="info_news">
+                      <h4>
+                        newsletter
+                      </h4>
+                      <form action="">
+                        <input type="text" placeholder="Enter Your email">
+                        <div class="d-flex justify-content-center justify-content-md-end mt-3">
+                          <button>
+                            Subscribe
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="detail-box">
-                <h6>
-                  demo@gmail
-                </h6>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="info_menu">
-            <h4>
-              Menu
-            </h4>
-            <ul class="navbar-nav  ">
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html"> About </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="medicine.html"> Medicine </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="buy.html"> Online Buy </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="info_news">
-            <h4>
-              newsletter
-            </h4>
-            <form action="">
-              <input type="text" placeholder="Enter Your email">
-              <div class="d-flex justify-content-center justify-content-md-end mt-3">
-                <button>
-                  Subscribe
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+            </section>
 
 
-  <!-- end info section -->
+            <!-- end info section -->
 
-  <!-- footer section -->
-  <section class="container-fluid footer_section">
-    <p>
-      &copy; 2023 All Rights Reserved. Design by
-      <a href="/">HealthNexus</a>
-    </p>
-  </section>
-  <!-- footer section -->
-  <script type="text/javascript" src="/js1/script1.js"></script>
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="js/bootstrap.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
-  </script>
-  <script type="text/javascript">
- 
-    $(".owl-carousel").owlCarousel({
-      loop: true,
-      margin: 10,
-      nav: true,
-      navText: [],
-      autoplay: true,
-      responsive: {
-        0: {
-          items: 1
-        },
-        600: {
-          items: 2
-        },
-        1000: {
-          items: 4
-        }
-      }
-    });
-  </script>
-  <script type="text/javascript">
-    $(".owl-2").owlCarousel({
-      loop: true,
-      margin: 10,
-      nav: true,
-      navText: [],
-      autoplay: true,
+            <!-- footer section -->
+            <section class="container-fluid footer_section">
+              <p>
+                &copy; 2023 All Rights Reserved. Design by
+                <a href="/">HealthNexus</a>
+              </p>
+            </section>
+            <!-- footer section -->
+            <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.js"></script>
+            <script type="text/javascript"
+              src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js">
+              </script>
+            <script type="text/javascript">
 
-      responsive: {
-        0: {
-          items: 1
-        },
-        600: {
-          items: 2
-        },
-        1000: {
-          items: 4
-        }
-      }
-    });
-  </script>
+              $(".owl-carousel").owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                navText: [],
+                autoplay: true,
+                responsive: {
+                  0: {
+                    items: 1
+                  },
+                  600: {
+                    items: 2
+                  },
+                  1000: {
+                    items: 4
+                  }
+                }
+              });
+            </script>
+            <script type="text/javascript">
+              $(".owl-2").owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                navText: [],
+                autoplay: true,
+
+                responsive: {
+                  0: {
+                    items: 1
+                  },
+                  600: {
+                    items: 2
+                  },
+                  1000: {
+                    items: 4
+                  }
+                }
+              });
+            </script>
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                const authToken = localStorage.getItem("authToken");
+                const authTokenInputs = document.querySelectorAll(".authTokenInput");
+                authTokenInputs.forEach(input => {
+                  input.value = authToken;
+                });
+              });
+            </script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+              $(document).ready(function () {
+                $(".add-to-cart-form").on("submit", function (e) {
+                  e.preventDefault();
+            
+                  var form = $(this);
+                  var formData = form.serialize();
+            
+                  $.ajax({
+                    url: "/cart",
+                    method: "GET",
+                    data: formData,
+                    success: function (response) {
+                      if (response.alreadyInCart) {
+                        alert("Item is already in the cart");
+                      } else {
+                        alert("Item added to cart");
+                      }
+                    },
+                    error: function (err) {
+                      console.log(err);
+                    }
+                  });
+                });
+              });
+            </script>
+            
+
 </body>
 
 </html>
