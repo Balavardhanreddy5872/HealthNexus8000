@@ -39,15 +39,26 @@ con.on('error', (err) => {
 
 const Token = require('./models/Token');
 const User = require('./models/user');
+// const Cart = require('./models/cart');
 
 app.use(express.urlencoded({ extended: true }));
 
 // Route to display the user's cart
-app.get('/usercart', fectuser, async (req, res) => {
+// Your route handler to fetch the user's cart
+app.get('/usercart', async (req, res) => {
   try {
-    const userId = req.user.id; // Assuming your user schema has an 'id' field
+    const userToken = req.query.token; // Get the user's token from the query parameter
 
-    // Fetch the user's cart based on the userId
+    // Query the Token schema to find a matching token
+    const tokenDocument = await Token.findOne({ token: userToken });
+
+    if (!tokenDocument) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
+    const userId = tokenDocument.user; // Get the user ID associated with the token
+
+    // Fetch the user's cart based on the user ID
     const user = await User.findById(userId);
 
     if (!user) {
@@ -57,8 +68,133 @@ app.get('/usercart', fectuser, async (req, res) => {
     // Access the user's cart
     const cartItems = user.cart;
 
-    // Send the cart items as a JSON response
-    res.json({ cartItems });
+    // Render the usercart.ejs view with cartItems data
+    // Render the usercart.ejs view with cartItems and token data
+    res.render('usercart', { cartItems });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+app.get('/orderhistory', async (req, res) => {
+  try {
+    const userToken = req.query.token; // Get the user's token from the query parameter
+
+    // Query the Token schema to find a matching token
+    const tokenDocument = await Token.findOne({ token: userToken });
+
+    if (!tokenDocument) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
+    const userId = tokenDocument.user; // Get the user ID associated with the token
+
+    // Fetch the user's cart based on the user ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Access the user's cart
+    const cartItems = user.cart;
+
+    // Render the usercart.ejs view with cartItems data
+    // Render the usercart.ejs view with cartItems and token data
+    res.render('orderhistory', { cartItems });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+app.put('/updateitem', fectuser, async (req, res) => {
+  const itemName = req.query.name;
+  const newQuantity = req.query.quantity;
+
+  try {
+    const userToken = req.query.token; // Get the user's token from the query parameter
+
+    // Query the Token schema to find a matching token
+    const tokenDocument = await Token.findOne({ token: userToken });
+
+    if (!tokenDocument) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
+    const userId = tokenDocument.user; // Get the user ID associated with the token
+
+    // Fetch the user's document
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    // Find the item in the user's cart by name
+    const itemToUpdate = user.cart.find((item) => item.name === itemName);
+
+    if (!itemToUpdate) {
+      return res.status(404).json({ error: 'Item not found in cart' });
+    }
+
+    // Calculate the change in quantity
+    const oldQuantity = itemToUpdate.quantity || 1;
+    const quantityChange = newQuantity - oldQuantity;
+
+    // Update the item's quantity
+    itemToUpdate.quantity = newQuantity;
+
+    // Save the updated user
+    await user.save();
+
+    // Respond with the old and new quantity for client-side calculation
+    res.json({ oldQuantity, newQuantity });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+// Delete an item from the cart by name
+app.delete('/deleteitem', async (req, res) => {
+  const itemName = req.query.name;
+
+  try {
+    const userToken = req.query.token; // Get the user's token from the query parameter
+
+    // Query the Token schema to find a matching token
+    const tokenDocument = await Token.findOne({ token: userToken });
+
+    if (!tokenDocument) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
+    const userId = tokenDocument.user; // Get the user ID associated with the token
+
+    // Fetch the user's document
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Find the index of the item to remove in the user's cart by name
+    const itemIndex = user.cart.findIndex((item) => item.name === itemName);
+
+    if (itemIndex === -1) {
+      return res.status(404).json({ error: 'Item not found in cart' });
+    }
+
+    // Remove the item from the cart array by index
+    user.cart.splice(itemIndex, 1);
+
+    // Save the updated user
+    await user.save();
+
+    res.json({ message: 'Item deleted from cart successfully' });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'An error occurred' });
@@ -78,17 +214,23 @@ app.get('/usercart', fectuser, async (req, res) => {
 
 
 
+
+
+
+
+
+
 // Completed succesful  signup to ajax 
 app.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
-  
+
   try {
     const existingUser = await User.findOne({ email });
-    
+
     if (existingUser) {
       return res.status(400).json({ error: "User already exists" });
     }
-    
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
@@ -96,7 +238,7 @@ app.post("/signup", async (req, res) => {
     if (email === "admin@gmail.com") {
       return res.redirect('/adminportal');
     }
-    const authToken = jwt.sign({ userId: newUser._id }, JWT_sceret); 
+    const authToken = jwt.sign({ userId: newUser._id }, JWT_sceret);
 
     const tokenInstance = new Token({
       token: authToken,
@@ -127,9 +269,9 @@ app.post("/login", async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
-  
+
     // For regular users, you can proceed with generating the authentication token
-    const authToken = jwt.sign({ userId: user._id }, JWT_sceret); 
+    const authToken = jwt.sign({ userId: user._id }, JWT_sceret);
 
     const tokenInstance = new Token({
       token: authToken,
@@ -150,14 +292,14 @@ app.listen(port, function () {
 });
 
 const medicine1 = require('./models/medicine1');
-app.get("/swiper_content",(req, res) => {
-  medicine1.find({}) 
-  .then((x) => {
+app.get("/swiper_content", (req, res) => {
+  medicine1.find({})
+    .then((x) => {
       res.render('swiper_content', { x })
-  }).catch((y) => {
+    }).catch((y) => {
       console.log(y);
       console.log('error in index')
-  })
+    })
 
 });
 
@@ -171,53 +313,6 @@ function getUserIdFromToken(req) {
   return decodedToken.userId;
 }
 
-// Route to update a cart item's quantity
-app.post('/updateCartItem', async (req, res) => {
-  const { name, quantity } = req.body;
-
-  try {
-    const userId = getUserIdFromToken(req);
-    const user = await User.findById(userId);
-
-    // Update the cart item's quantity
-    const cartItem = user.cart.find(item => item.name === name);
-    if (cartItem) {
-      cartItem.quantity = parseInt(quantity);
-    }
-
-    await user.save();
-
-    // Calculate new subtotal based on updated quantity and price
-    const newSubtotal = user.cart.reduce((subtotal, item) => subtotal + (item.price * item.quantity), 0);
-
-    res.json({ newSubtotal }); // Send updated data back to the client
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
-  }
-});
-
-// Route to delete a cart item
-app.post('/deleteCartItem', async (req, res) => {
-  const { name } = req.body;
-
-  try {
-    const userId = getUserIdFromToken(req);
-    const user = await User.findById(userId);
-
-    // Delete the cart item from the user's cart
-    user.cart = user.cart.filter(item => item.name !== name);
-    await user.save();
-
-    // Delete the cart item from the Cart collection (if needed)
-    await Cart.deleteOne({ name });
-
-    res.json({ message: 'Item deleted' }); // Send response back to the client
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'An error occurred' });
-  }
-});
 
 
 
