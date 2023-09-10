@@ -19,10 +19,22 @@ input[type="submit"]{
     border: none;
 }
 
-img{
+.img-logg
+{
+position: relative;
+}
+   
+
+.img-logg img
+{
+width: 1570px;
+    height: 750px
+}
+
+/* img{
 object-fit: cover;
 width: 500px;
-}
+} */
 a{
     color: skyblue;
 }

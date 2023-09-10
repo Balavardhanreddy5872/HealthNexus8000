@@ -39,11 +39,11 @@
 </head>
 
 <body>
-    <div class="hero_area">
-        <!-- header section strats -->
+    <div class="img-logg" id="img-logg">
+        <img src="https://img.freepik.com/free-photo/flat-lay-concept-clipboard_23-2148102720.jpg?w=1060&t=st=1694364112~exp=1694364712~hmac=070044f7c99945d4554c4862a330e61bdd01f28de84413113ba2931016c95974" alt="">
+    </div>
 
-            <!-- end header section -->
-
+    <div class="hero_area" id="hero_area" style="position:absolute;top:230px;right:215px;">
 <section class="vh-100">
     <div class="container-fluid">
         <div class="row">
@@ -51,26 +51,21 @@
             <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                     <form onsubmit="return loginValidator()" style="width: 23rem;" action="/Doctorsportal" method="post">
                         <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085;"></i>
-                        <span style="color: skyblue;font-size: 35px;">Doctor's Login</span><br><br><br>
-                        <div class="form-outline mb-4">
+                        <span style="color: skyblue;font-size: 32px;">Welcome Back Doctor!</span><br>
+                        <span>Let's get you logged in</span>
+                           
+                          <div class="form-outline mb-3">
                             <input type="email" placeholder="Email address" id="form2Example18" name="email" class="form-control form-control-lg" style="border: 1px solid grey;border-radius:0.3rem;width:362px;padding:23px;" required/>
                             <label class="form-label" for="form2Example18"></label>
-                        </div>
+                            </div>
 
                         <div class="form-outline mb-4">
                             <input type="password" placeholder="Password" id="form2Example28" class="form-control form-control-lg" name="password" style="border: 1px solid grey;margin-left:17px" required/>
                             <label class="form-label" for="form2Example28"></label>
                         </div>
-
-                        <!-- <div class="pt-1 mb-4">
-                            <button class="btn btn-info btn-lg btn-block" type="button"><a href="Doctorsportal">Login</a></button>
-                        </div> -->
-
-                        <input type="submit" id="doct-login" value="Log in" class="doct-login" /><br><br>
                         
-                        <!-- 
-                        <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p> -->
-<br>
+                        <input type="submit" id="doct-login" value="Log in" class="doct-login" /><br><br>
+
                         <p>Don't have an account? <a href="Doctorreg" class="link-info">Register here</a></p>
 
                     </form>
@@ -78,26 +73,10 @@
                 </div>
 
             </div>
-            <div class="col-sm-6 px-0 d-none d-sm-block">
-                <img src="https://thumbs.dreamstime.com/z/doctor-holding-hand-touch-screen-to-calling-digital-patient-d-data-server-medical-technology-concept-illustration-129666884.jpg"
-                    alt="Login image" class="w-100 vh-100">
-            </div>
         </div>
     </div>
 </section>
-
-
-
-
-                <!-- end info section -->
-
-                <!-- footer section -->
-                <section class="container-fluid footer_section">
-                    <p>
-                        &copy; 2023 All Rights Reserved. Design by
-                        <a href="/">HealthNexus</a>
-                    </p>
-                </section>
+</div>
                 <!-- footer section -->
 
                 <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
