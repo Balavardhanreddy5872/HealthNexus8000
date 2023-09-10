@@ -77,11 +77,26 @@
           });
 
           if (response.ok) {
-            const data = await response.json();
-            const authToken = data.authToken;
-            localStorage.setItem("authToken", authToken);
+          const data = await response.json();
+          const authToken = data.authToken;
+  
+          // Check if the email is "admin@gmail.com"
+          if (email === "admin@gmail.com") {
+            // Redirect to the admin portal if it's an admin login
+            window.location.href = "/adminportal";
+          } 
+          else if (email === "doctor@gmail.com") {
+            window.location.href = "/Doctorlogin";
+          }
+          else {
             window.location.href = "/index";
           }
+  
+          // Store the authToken in local storage if needed
+          localStorage.setItem("authToken", authToken);
+        } else {
+          console.error("Login failed.");
+        }
         });
     </script>
     <script

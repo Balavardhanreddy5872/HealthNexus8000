@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const JWT_sceret = 'bvr12345';
 
 const fetchuser = (req, res, next) => {
-    const token = req.headers.authorization; // Corrected: use req.headers.authorization to access the token
+    const token =  req.query.token; // Corrected: use req.headers.authorization to access the token
 
     if (!token) {
         return res.status(401).json({ error: "Please authenticate using a valid token" });

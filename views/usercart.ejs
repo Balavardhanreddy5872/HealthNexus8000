@@ -1,175 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HelathNexus</title>
-    <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-    <link href="/css/style.css" rel="stylesheet" />
-    <link href="/css/responsive.css" rel="stylesheet" />
-    <script
-      src="https://kit.fontawesome.com/a076d05399.js"
-      crossorigin="anonymous"
-    ></script>
-    <style>
-      h1 {
-        text-align: center;
-      }
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
 
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-        line-height: 1.5;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HelathNexus</title>
+  <link rel="icon" type="image/x-icon" href="/images/SimplyVital-logo.jpg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link href="/css/style.css" rel="stylesheet" />
+  <link href="/css/responsive.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    h1 {
+      text-align: center;
+    }
 
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-      table {
-        width: 100%;
-      }
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
 
-      th,
-      td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: left;
-      }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-      th {
-        background-color: #f2f2f2;
-      }
-      button {
-        padding: 3px 50px;
-        background-color: aqua;
-      }
-    </style>
-  </head>
+    table {
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    button {
+      padding: 3px 50px;
+      background-color: aqua;
+    }
+  </style>
+</head>
+
+<body>
+
   <body>
     <!-- cart.ejs -->
 
-    <div class="hero_area">
-      <%- include('./partials/navbar3.ejs') %>
-      <h1>CART</h1>
-      <br />
-      <br />
-      <table border="5" style="height: 30vh">
-        <thead style="height: 20vh">
-          <tr style="background-color: aqua">
-            <th>Product</th>
-            <th style="width: 100px">Price</th>
-            <th style="width: 100px">Quantity</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% let subtotal = 0 %> <% x.forEach((y) => {%>
-          <tr>
-            <td style="text-align: center"><%= y.name %></td>
-            <td style="text-align: center"><%= y.price %></td>
-            <td>
-              <% let quantity = y.quantity || 1 %>
-              <input
-                type="number"
-                name="quantity"
-                value="<%= quantity %>"
-                min="1"
-                max="10"
-                onchange="updateQuantity('<%= y.name %>', this.value, <%= y.price %>)"
-              />
-            </td>
-            <td>
-              <button onclick="deleteItem('<%= y.name %>')">delete</button>
-            </td>
-          </tr>
-          <% subtotal += y.price * Number(quantity) %> <% }) %>
-        </tbody>
+    <body>
+      <!-- cart.ejs -->
 
-        <tfoot>
-          <tr>
-            <td colspan="2"><strong>Total:</strong></td>
-            <td id="total"><%= subtotal %></td>
-          </tr>
-        </tfoot>
-      </table>
-      <br />
-      <form method="get" action="/deletecart">
-        <button
-          type="submit"
-          style="text-align: center; background-color: aqua"
-        >
-          Buy Now
-        </button>
-      </form>
-      <br />
-      <br />
-      <br />
-      <script>
-        function updateSubtotal(input, price) {
-          let quantity = Number(input.value);
-          if (isNaN(quantity) || quantity < 1 || quantity > 10) {
-            quantity = 1;
-            input.value = quantity;
-          }
-          let subtotal = price * quantity;
-          let total = document.getElementById("total");
-          total.innerHTML =
-            subtotal +
-            Number(total.innerHTML) -
-            price * Number(input.defaultValue);
-          input.defaultValue = quantity;
-        }
-        function buyNow() {
-          let total = document.getElementById("total");
-          total.innerHTML = "0";
-          let inputs = document.getElementsByName("quantity");
-          for (let i = 0; i < inputs.length; i++) {
-            inputs[i].value = "1";
-            inputs[i].defaultValue = "1";
-          }
-          x = []; // Clear the array of products
-          let tbody = document.querySelector("tbody");
-          while (tbody.firstChild) {
-            tbody.removeChild(tbody.firstChild);
-          }
-          window.location.href = "/display2"; // Redirect to another page              
-        }
-      </script>
-       <script>
-        // You can include your JavaScript code here
-        // For example, to fetch the user's cart data
-        const authToken = localStorage.getItem('authToken'); // Retrieve the auth token from local storage
+      <div class="hero_area">
+        <%- include('./partials/navbar3.ejs') %>
+          <h1>CART</h1>
 
-        fetch('/usercart', {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${authToken}`
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            const cartItems = data.cartItems; // Assuming your response contains cartItems
-            // Populate the cart table with cartItems here
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    </script>
-      <%- include('./partials/footer.ejs') %>
-    </div>
-  </body>
+          <table border="5">
+            <thead>
+              <tr style="background-color: aqua">
+                <th>Product</th>
+                <th style="width: 100px">Price</th>
+                <th style="width: 100px">Quantity</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% let subtotal=0 %>
+                <% cartItems.forEach((item)=> { %>
+                  <tr id="<%= item.name %>">
+                    <td style="text-align: center">
+                      <%= item.name %>
+                    </td>
+                    <td style="text-align: center">
+                      <%= item.price%>
+                    </td>
+                    <td>
+                      <input type="number" name="quantity" value="<%= item.quantity || 1 %>" min="1" max="10"
+                        onchange="updateQuantity('<%= item._id %>', this.value, '<%= item.price %>')" />
+                    </td>
+                    <td>
+                      <button onclick="deleteItem('<%= item.name %>')">Delete</button>
+                    </td>
+                  </tr>
+                  <% subtotal +=item.price * Number(item.quantity ||1 ) %>
+                <% }) %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2"><strong>Total:</strong></td>
+                <td id="total">
+                  <%= subtotal%>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <br />
+          <form method="get" action="/deletecart">
+            <button type="submit" style="text-align: center; background-color: aqua">
+              Buy Now
+            </button>
+
+            <script>
+              const queryString = window.location.search;
+              const urlParams = new URLSearchParams(queryString);
+              const token = urlParams.get('token');
+
+              fetch(`/oderhistory?token=${token}`, {
+                method: 'GET',
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+                },
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  const cartItems = data.cartItems;
+
+                  const cartDiv = document.getElementById('cart');
+
+                  if (cartItems.length === 0) {
+                    cartDiv.innerHTML = '<p>Your cart is empty.</p>';
+                  } else {
+                    const ul = document.createElement('ul');
+                    cartItems.forEach((item) => {
+                      const li = document.createElement('li');
+                      li.textContent = `${item.name} + Price: $${item.price}`;
+                      ul.appendChild(li);
+                    });
+                    cartDiv.appendChild(ul);
+                  }
+                })
+                .catch((error) => {
+                  console.error(error);
+                });
+
+              function updateQuantity(itemName, newQuantity, itemPrice) {
+                fetch(`/updateitem?name=${itemName}&quantity=${newQuantity}`, {
+                  method: 'PUT',
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+                  },
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    const total = document.getElementById('total');
+                    const currentTotal = Number(total.innerHTML);
+                    const updatedTotal = currentTotal + (itemPrice * (newQuantity - 1));
+                    total.innerHTML = updatedTotal;
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+              }
+
+              function deleteItem(itemName) {
+                const token = localStorage.getItem('authToken');
+                fetch(`/deleteitem?name=${itemName}&token=${token}`, {
+                  method: 'DELETE',
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    const itemRow = document.getElementById(itemName);
+                    if (itemRow) {
+                      itemRow.remove();
+                    }
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+              }
+
+
+
+            </script>
+
+
+    </body>
+
 </html>
