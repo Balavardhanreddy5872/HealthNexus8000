@@ -7,53 +7,57 @@
   <title>Form Validation in HTML | CodingNepal</title>
   <link rel="stylesheet" href="/css/Doctorreg.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-  
+
 </head>
 
 <body>
-  
-    <div class="img-cont">
-       <img src="https://img.freepik.com/free-photo/medical-desk-with-stethoscope-mask_23-2148519724.jpg?w=1060&t=st=1694338193~exp=1694338793~hmac=c3786418a7b32c19ace96c452b167e9d7154da857acea0f0880d7c754f17ab12" alt="">
+
+  <div class="img-cont">
+    <img
+      src="https://img.freepik.com/free-photo/medical-desk-with-stethoscope-mask_23-2148519724.jpg?w=1060&t=st=1694338193~exp=1694338793~hmac=c3786418a7b32c19ace96c452b167e9d7154da857acea0f0880d7c754f17ab12"
+      alt="">
+  </div>
+
+  <form action="thank-you.html" class="form-cont">
+    <h2>Doctor Signup form</h2>
+    <div class="form-group fullname">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" placeholder="Enter your full name">
     </div>
-  
-          <form action="thank-you.html" class="form-cont">
-            <h2>Doctor Signup form</h2>
-            <div class="form-group fullname">
-              <label for="fullname">Full Name</label>
-              <input type="text" id="fullname" placeholder="Enter your full name">
-            </div>
-            <div class="form-group email">
-              <label for="email">Email Address</label>
-              <input type="text" id="email" placeholder="Enter your email address">
-            </div>
-            <div class="form-group password">
-              <label for="password">Password</label>
-              <input type="password" id="password" placeholder="Enter your password">
-              <i id="pass-toggle-btn" class="fa-solid fa-eye"></i>
-            </div>
-            <div class="form-group date">
-              <label for="date">Birth Date</label>
-              <input type="date" id="date" placeholder="Select your date">
-            </div>
-            <div class="form-group gender">
-              <label for="gender">Gender</label>
-              <select id="gender">
-                <option value="" selected disabled>Select your gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            <div class="form-group submit-btn">
-              <input type="submit" value="Submit">
-            </div>
-          </form>
-  
+    <div class="form-group email">
+      <label for="email">Email Address</label>
+      <input type="text" id="email" placeholder="Enter your email address">
+    </div>
+    <div class="form-group password">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password">
+      <i id="pass-toggle-btn" class="fa-solid fa-eye"></i>
+    </div>
+    <div class="form-group date">
+      <label for="date">Birth Date</label>
+      <input type="date" id="date" placeholder="Select your date">
+    </div>
+    <div class="form-group Speciality">
+      <label for="Speciality">Select Speciality</label>
+      <select id="Speciality">
+      <option name="Specility" selected hidden>Specialty</option>
+      <option name="Specility">Orthopedics</option>
+      <option name="Specility">Obstetrics and Gynecology</option>
+      <option name="Specility">Dermatology</option>
+      <option name="Specility">Pediatrics</option>
+      <option name="Specility">Radiology</option>
+      </select>
+    </div>
+    <div class="form-group submit-btn">
+      <input type="submit" value="Submit">
+    </div>
+  </form>
+
 
 
 
   <script src="script.js"></script>
-<script>
+  <script>
     const form = document.querySelector("form");
     const passwordInput = document.getElementById("password");
     const passToggleBtn = document.getElementById("pass-toggle-btn");
@@ -66,31 +70,31 @@
       field.closest(".form-group").appendChild(errorElement);
     }
 
-  
+
     const handleFormData = (e) => {
       e.preventDefault();
 
-     
+
       const fullnameInput = document.getElementById("fullname");
       const emailInput = document.getElementById("email");
       const dateInput = document.getElementById("date");
       const genderInput = document.getElementById("gender");
 
-     
+
       const fullname = fullnameInput.value.trim();
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
       const date = dateInput.value;
       const gender = genderInput.value;
 
-     
+
       const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
-     
+
       document.querySelectorAll(".form-group .error").forEach(field => field.classList.remove("error"));
       document.querySelectorAll(".error-text").forEach(errorText => errorText.remove());
 
-  
+
       if (fullname === "") {
         showError(fullnameInput, "Enter your full name");
       }
@@ -107,25 +111,38 @@
         showError(genderInput, "Select your gender");
       }
 
-    
+
       const errorInputs = document.querySelectorAll(".form-group .error");
       if (errorInputs.length > 0) return;
 
-    
+
       form.submit();
     }
 
-   
+
     passToggleBtn.addEventListener('click', () => {
       passToggleBtn.className = passwordInput.type === "password" ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
       passwordInput.type = passwordInput.type === "password" ? "text" : "password";
     });
 
-    
+
     form.addEventListener("submit", handleFormData);
 
 
-</script>
+  </script>
 </body>
 
 </html>
+
+
+
+<!-- <p class="col-md-6 specialty-wrap">
+  <select name="Specility">
+    <option name="Specility" selected hidden>Specialty</option>
+    <option name="Specility">Orthopedics</option>
+    <option name="Specility">Obstetrics and Gynecology</option>
+    <option name="Specility">Dermatology</option>
+    <option name="Specility">Pediatrics</option>
+    <option name="Specility">Radiology</option>
+  </select>
+</p> -->
