@@ -93,6 +93,9 @@ app.post("/signup", async (req, res) => {
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
 
+    if (email === "admin@gmail.com") {
+      return res.redirect('/adminportal');
+    }
     const authToken = jwt.sign({ userId: newUser._id }, JWT_sceret); 
 
     const tokenInstance = new Token({
@@ -119,13 +122,13 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    const passwordMatch = bcrypt.compare(password, user.password);
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
-
-    // Create a new token instance and associate it with the user
+  
+    // For regular users, you can proceed with generating the authentication token
     const authToken = jwt.sign({ userId: user._id }, JWT_sceret); 
 
     const tokenInstance = new Token({
@@ -135,12 +138,11 @@ app.post("/login", async (req, res) => {
     await tokenInstance.save();
 
     res.status(200).json({ authToken });
+
   } catch (error) {
     res.status(500).json({ error: "An error occurred" });
   }
 });
-
-
 
 
 app.listen(port, function () {

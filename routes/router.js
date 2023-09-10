@@ -27,8 +27,6 @@ router.get('/cart',controller.getcart);
 router.get('/deletecart',controller.getdeletecart);
 router.get('/userdisplay',controller.getuserdisplay);
 router.get('/medicinedisplay',controller.getmedicinedisplay);
-// router.post('/login',controller.postlogin);
-// router.post('/signup',controller.postsignup);
 
 
 module.exports= router;
