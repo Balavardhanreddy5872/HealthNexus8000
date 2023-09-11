@@ -151,7 +151,7 @@
               const urlParams = new URLSearchParams(queryString);
               const token = urlParams.get('token');
 
-              fetch(`/oderhistory?token=${token}`, {
+              fetch(`/usercart?token=${token}`, {
                 method: 'GET',
                 headers: {
                   Authorization: `Bearer ${localStorage.getItem('authToken')}`,
