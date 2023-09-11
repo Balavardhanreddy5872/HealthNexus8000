@@ -88,10 +88,10 @@
     $(document).ready(function () {
       $(".add-to-cart-link").on("click", function (e) {
         e.preventDefault();
-  
+
         var link = $(this);
         var formData = link.data("form-data");
-  
+
         $.ajax({
           url: "/cart",
           method: "GET",
@@ -99,6 +99,7 @@
           success: function (response) {
             alert("Item added to cart");
           },
+
           error: function (err) {
             console.log(err);
           }
