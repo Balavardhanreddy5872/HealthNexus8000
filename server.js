@@ -1140,15 +1140,10 @@ app.get("/Doctorsportal", function (req, res) {
 
 app.post('/doctorlogin', async (req, res) => {
   const data = {
-    Name: req.body.Name,
-    mail: req.body.Email,
-    date_of_birth: req.body.DOB,
-    City: req.body.City,
-    Country: req.body.Country,
+    Name: req.body.fullname,
+    mail: req.body.email,
+    date_of_birth: req.body.date,
     password: req.body.password,
-    Language: req.body.Language,
-    Medical_school: req.body.MedSch,
-    MedicalId: req.body.MedID,
     Specility: req.body.Specility
   }
 
@@ -1197,10 +1192,12 @@ app.post("/Doctorsportal", function (req, res) {
 
           res.render("Doctorsportal", { user: use, patient: k });
         } else {
-          res.status(400).json({ error: "password doesn't match" });
+          // res.status(400).json({ error: "password doesn't match" });
+          res.render("Doctorlogin");
         }
       } else {
-        res.status(400).json({ error: "User doesn't exist,signup please!" });
+        // res.status(400).json({ error: "User doesn't exist,signup please!" });
+        res.render("Doctorlogin");
       }
     })
 

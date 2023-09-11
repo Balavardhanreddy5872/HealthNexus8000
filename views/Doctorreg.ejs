@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form Validation in HTML | CodingNepal</title>
+  <title>Doctor Registration</title>
   <link rel="stylesheet" href="/css/Doctorreg.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 
@@ -18,34 +18,34 @@
       alt="">
   </div>
 
-  <form action="thank-you.html" class="form-cont">
+  <form action="/Doctorlogin" method="post" class="form-cont">
     <h2>Doctor Signup form</h2>
     <div class="form-group fullname">
       <label for="fullname">Full Name</label>
-      <input type="text" id="fullname" placeholder="Enter your full name">
+      <input name="fullname" type="text" id="fullname" placeholder="Enter your full name">
     </div>
     <div class="form-group email">
       <label for="email">Email Address</label>
-      <input type="text" id="email" placeholder="Enter your email address">
+      <input name="email" type="text" id="email" placeholder="Enter your email address">
     </div>
     <div class="form-group password">
       <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Enter your password">
+      <input name="password" type="password" id="password" placeholder="Enter your password">
       <i id="pass-toggle-btn" class="fa-solid fa-eye"></i>
     </div>
     <div class="form-group date">
       <label for="date">Birth Date</label>
-      <input type="date" id="date" placeholder="Select your date">
+      <input name="date" type="date" id="date" placeholder="Select your date">
     </div>
-    <div class="form-group Speciality">
-      <label for="Speciality">Select Speciality</label>
-      <select id="Speciality">
-      <option name="Specility" selected hidden>Specialty</option>
-      <option name="Specility">Orthopedics</option>
-      <option name="Specility">Obstetrics and Gynecology</option>
-      <option name="Specility">Dermatology</option>
-      <option name="Specility">Pediatrics</option>
-      <option name="Specility">Radiology</option>
+    <div class="form-group gender">
+      <label for="gender">Select Speciality</label>
+      <select name="Specility" id="gender">
+        <option name="Specility" value="" selected disabled>Specialty</option>
+        <option name="Specility" value="Orthopedics">Orthopedics</option>
+        <option name="Specility" value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+        <option name="Specility" value="Dermatology">Dermatology</option>
+        <option name="Specility" value="Pediatrics">Pediatrics</option>
+        <option name="Specility" value="Radiology">Radiology</option>
       </select>
     </div>
     <div class="form-group submit-btn">
@@ -108,7 +108,7 @@
         showError(dateInput, "Select your date of birth");
       }
       if (gender === "") {
-        showError(genderInput, "Select your gender");
+        showError(genderInput, "Select your Speciality");
       }
 
 
@@ -130,6 +130,10 @@
 
 
   </script>
+
+  <!-- -------------------------------------------------------------------------------- -->
+
+  <!-- ----------------------------------------------------------------------------------- -->
 </body>
 
 </html>
