@@ -121,7 +121,45 @@
           <% } %> */
             <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
             <!-- end here -->
-            <script src="js/script1.js"></script>
+            <script>
+            const productContainers = [...document.querySelectorAll('.product-container')];
+            const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
+            const preBtn = [...document.querySelectorAll('.pre-btn')];
+
+            productContainers.forEach((item, i) => {
+            let containerDimensions = item.getBoundingClientRect();
+            let containerWidth = containerDimensions.width;
+
+            nxtBtn[i].addEventListener('click', () => {
+             item.scrollLeft += containerWidth;
+            })
+
+            preBtn[i].addEventListener('click', () => {
+             item.scrollLeft -= containerWidth;
+            })
+})
+document.addEventListener('DOMContentLoaded', () => {
+  const productContainers = [...document.querySelectorAll('.product-container')];
+  const nxtBtn = [...document.querySelectorAll('.nxt-btn')];
+  const preBtn = [...document.querySelectorAll('.pre-btn')];
+
+  productContainers.forEach((item, i) => {
+    let containerDimensions = item.getBoundingClientRect();
+    let containerWidth = containerDimensions.width;
+
+    nxtBtn[i].addEventListener('click', () => {
+      item.scrollLeft += containerWidth;
+    });
+
+    preBtn[i].addEventListener('click', () => {
+      item.scrollLeft -= containerWidth;
+    });
+  });
+});
+
+            </script>
+
+            
             <!-- end of image section -->
             <!-- info section -->
             <section class="info_section layout_padding2">
