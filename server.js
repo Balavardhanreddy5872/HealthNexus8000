@@ -156,12 +156,27 @@ app.delete('/deleteitem', async (req, res) => {
 // Completed succesful  signup to ajax 
 app.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
+  const validationErrors = [];
+  if (name.length < 5) {
+    validationErrors.push("Name should be at least 5 characters");
+  }
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/;
+  if (!passwordRegex.test(password)) {
+    validationErrors.push("Password should contain one capital letter and a special character");
+  }
+  const emailRegex = /@/;
+  if (!emailRegex.test(email)) {
+    validationErrors.push("Invalid email format");
+  }
 
+  if (validationErrors.length > 0) {
+    return res.status(200).json({ validationErrors });
+  }
   try {
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return res.status(400).json({ error: "User already exists" });
+      validationErrors.push("User already Exists");
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -185,19 +200,32 @@ app.post("/signup", async (req, res) => {
   }
 });
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password} = req.body;
+  const validationErrors = [];
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/;
+  if (!passwordRegex.test(password)) {
+    validationErrors.push("Invalid password");
+  }
+  const emailRegex = /@/;
+  if (!emailRegex.test(email)) {
+    validationErrors.push("Invalid email format");
+  }
+
+  if (validationErrors.length > 0) {
+    return res.status(200).json({ validationErrors });
+  }
 
   try {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      validationErrors.push('User not found');
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      validationErrors.push('Wrong password');
     }
     const authToken = jwt.sign({ userId: user._id }, JWT_sceret);
 
