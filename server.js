@@ -39,37 +39,24 @@ con.on('error', (err) => {
 
 const Token = require('./models/Token');
 const User = require('./models/user');
-// const Cart = require('./models/cart');
 
 app.use(express.urlencoded({ extended: true }));
-
-// Route to display the user's cart
-// Your route handler to fetch the user's cart
 app.get('/usercart', async (req, res) => {
   try {
-    const userToken = req.query.token; // Get the user's token from the query parameter
-
-    // Query the Token schema to find a matching token
+    const userToken = req.query.token;
     const tokenDocument = await Token.findOne({ token: userToken });
 
     if (!tokenDocument) {
       return res.status(401).json({ error: 'Invalid token' });
     }
 
-    const userId = tokenDocument.user; // Get the user ID associated with the token
-
-    // Fetch the user's cart based on the user ID
+    const userId = tokenDocument.user;
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-
-    // Access the user's cart
     const cartItems = user.cart;
-
-    // Render the usercart.ejs view with cartItems data
-    // Render the usercart.ejs view with cartItems and token data
     res.render('usercart', { cartItems });
 
   } catch (error) {
@@ -80,29 +67,19 @@ app.get('/usercart', async (req, res) => {
 
 app.get('/orderhistory', async (req, res) => {
   try {
-    const userToken = req.query.token; // Get the user's token from the query parameter
-
-    // Query the Token schema to find a matching token
+    const userToken = req.query.token;
     const tokenDocument = await Token.findOne({ token: userToken });
 
     if (!tokenDocument) {
       return res.status(401).json({ error: 'Invalid token' });
     }
-
-    const userId = tokenDocument.user; // Get the user ID associated with the token
-
-    // Fetch the user's cart based on the user ID
+    const userId = tokenDocument.user;
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-
-    // Access the user's cart
     const cartItems = user.cart;
-
-    // Render the usercart.ejs view with cartItems data
-    // Render the usercart.ejs view with cartItems and token data
     res.render('orderhistory', { cartItems });
 
   } catch (error) {
@@ -116,82 +93,56 @@ app.put('/updateitem', fectuser, async (req, res) => {
   const newQuantity = req.query.quantity;
 
   try {
-    const userToken = req.query.token; // Get the user's token from the query parameter
-
-    // Query the Token schema to find a matching token
+    const userToken = req.query.token;
     const tokenDocument = await Token.findOne({ token: userToken });
 
     if (!tokenDocument) {
       return res.status(401).json({ error: 'Invalid token' });
     }
 
-    const userId = tokenDocument.user; // Get the user ID associated with the token
-
-    // Fetch the user's document
+    const userId = tokenDocument.user;
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    // Find the item in the user's cart by name
     const itemToUpdate = user.cart.find((item) => item.name === itemName);
 
     if (!itemToUpdate) {
       return res.status(404).json({ error: 'Item not found in cart' });
     }
-
-    // Calculate the change in quantity
     const oldQuantity = itemToUpdate.quantity || 1;
     const quantityChange = newQuantity - oldQuantity;
-
-    // Update the item's quantity
     itemToUpdate.quantity = newQuantity;
-
-    // Save the updated user
     await user.save();
-
-    // Respond with the old and new quantity for client-side calculation
     res.json({ oldQuantity, newQuantity });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'An error occurred' });
   }
 });
-
-// Delete an item from the cart by name
 app.delete('/deleteitem', async (req, res) => {
   const itemName = req.query.name;
 
   try {
-    const userToken = req.query.token; // Get the user's token from the query parameter
-
-    // Query the Token schema to find a matching token
+    const userToken = req.query.token;
     const tokenDocument = await Token.findOne({ token: userToken });
 
     if (!tokenDocument) {
       return res.status(401).json({ error: 'Invalid token' });
     }
-
-    const userId = tokenDocument.user; // Get the user ID associated with the token
-
-    // Fetch the user's document
+    const userId = tokenDocument.user;
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-
-    // Find the index of the item to remove in the user's cart by name
     const itemIndex = user.cart.findIndex((item) => item.name === itemName);
 
     if (itemIndex === -1) {
       return res.status(404).json({ error: 'Item not found in cart' });
     }
-
-    // Remove the item from the cart array by index
     user.cart.splice(itemIndex, 1);
-
-    // Save the updated user
     await user.save();
 
     res.json({ message: 'Item deleted from cart successfully' });
@@ -200,24 +151,6 @@ app.delete('/deleteitem', async (req, res) => {
     return res.status(500).json({ error: 'An error occurred' });
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Completed succesful  signup to ajax 
@@ -251,9 +184,6 @@ app.post("/signup", async (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   }
 });
-
-
-// complted succesful login to ajax 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -269,8 +199,6 @@ app.post("/login", async (req, res) => {
     if (!passwordMatch) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
-
-    // For regular users, you can proceed with generating the authentication token
     const authToken = jwt.sign({ userId: user._id }, JWT_sceret);
 
     const tokenInstance = new Token({
@@ -303,13 +231,10 @@ app.get("/swiper_content", (req, res) => {
 
 });
 
-// Import necessary modules and models
-const Cart = require('./models/cart'); // Replace with actual path to the Cart model
-
-// Define a function to extract user ID from token
+const Cart = require('./models/cart');
 function getUserIdFromToken(req) {
-  const token = req.headers.authorization.split(' ')[1]; // Assuming token is sent in the "Bearer" format
-  const decodedToken = jwt.verify(token, 'your-secret-key'); // Replace with your actual secret key
+  const token = req.headers.authorization.split(' ')[1]; 
+  const decodedToken = jwt.verify(token, 'your-secret-key'); 
   return decodedToken.userId;
 }
 
