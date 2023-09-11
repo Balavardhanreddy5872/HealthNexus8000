@@ -6,8 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Check-out Page</title>
     <link rel="stylesheet" href="/css/payment.css">
+    <style>
+      /* Define the symbol style */
+      .symbol-animation {
+        margin-left: 35%;
+        position: relative;
+          margin-top: 40px;
+          /* opacity: 0;  */
+          /* animation: symbol-fade-in 2s ease-in-out forwards;
+          /* z-index: 1; */
+      }
+      .symbol-animation img{
+        width: 400px;
+      }
+
+      /* Define the animation keyframes */
+      @keyframes symbol-fade-in {
+          0% {
+              opacity: 0; /* Start with opacity 0 */
+          }
+          100% {
+              opacity: 1; /* End with opacity 1 (fully visible) */
+          }
+      }
+
+    </style>
 </head>
 <body>
+  <div class="symbol-animation">
+  <img src="https://img.freepik.com/premium-vector/green-check-mark-icon-symbol-logo-circle-tick-symbol-green-color-vector-illustration_685751-503.jpg?size=626&ext=jpg&ga=GA1.1.2102299030.1694417378&semt=ais">
+</div>
   <div class="admin-container2">
     <h1>
         Thanks for shopping an appointment with us<br> <br>
@@ -21,4 +49,12 @@
     <h4 style="text-align: center;"> regards team <a href="/index">HealthNexus</a></h4>
   </div>
 </body>
+<script>
+  window.addEventListener('load', function () {
+                setTimeout(()=>{
+                  const symbol-animation = document.getElementsByClassName('symbol-animation');
+                symbol-animation.style.display = 'none'; // Hide the symbol-animation when the page is loaded
+                },500);
+              });
+</script>
 </html>

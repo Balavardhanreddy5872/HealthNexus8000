@@ -19,6 +19,7 @@ body{
     top: 5%;
     left: 30%;
     /* border: 2px solid red; */
+    animation: symbol-fade-in 3s ease-in-out forwards; 
     padding: 40px;
     background-color: lightgreen;
      border-radius: 20px;
