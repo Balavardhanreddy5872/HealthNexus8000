@@ -2,13 +2,14 @@ body {
   font-family: "Poppins", sans-serif;
   color: #000000;
   background-color: white;
+  margin: 0;
 }
 
 /* PRODUCTS */
 .product {
   position: relative;
   overflow: hidden;
-  padding: 20px;
+  /* padding: 20px; */
   padding-left: 0;
   padding-right: 0;
   background:  linear-gradient(to bottom,rgb(36, 174, 177) 0%,
@@ -19,37 +20,55 @@ body {
 }
 
 .product-category {
-  padding: 0 10vw;
   font-size: 40px;
   font-weight: 500;
   margin-bottom: 10px;
   text-transform: capitalize;
-  padding-left: 7.8vw;
-  display: flex;
-  justify-content: center;
+  text-align: center;
+  color: #fff;
+  background-color: #24aeb1;
+  padding: 10px;
+  align-items: flex-start; /* Align the category text to the left */
 }
 
 .left-alp {
-  justify-content: start;
+  display: flex; /* Make it a flex container */
+  align-items: flex-start; /* Align items to the start (top) of the container */
   color: #fff;
 }
 
 .product-container {
-  /* padding: 0 10vw; */
   display: flex;
   overflow-x: auto;
-  scroll-behavior: smooth;
-  height: 70vh;
-  padding-left: 3vw;
-  padding-right: 3vw;
-  box-sizing: border-box;
-  gap : 1.5rem;
-  /* justify-content: space-between; */
-  /* border:2px solid black; */
+  scroll-behavior:smooth;
+  padding: 10px;
+  gap: 20px;
+  border-radius: 15px;
+  background: linear-gradient(to bottom, rgb(36, 174, 177) 0%, rgb(36, 174, 177) 40%, #d3d4d6 40%, #f3f7fb 100%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  align-items: flex-start; /* Align items at the start of the container */
 }
+
 
 .product-container::-webkit-scrollbar {
   display: none;
+}
+
+.product-container::before {
+  content: ''; /* Create a pseudo-element for spacing */
+  width: 10px; /* Adjust the width as needed */
+}
+
+/* Add animations to product cards on hover */
+.product-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .product-card {
@@ -83,12 +102,11 @@ body {
 }
 
 .product-thumb {
-  width: 400px;
-  /* padding: 10px; */
-  border-radius: 25px ;
+  width: 100%;
   height: 100%;
-  object-fit: cover;
-  box-sizing:content-box;
+  object-fit: cover; /* Ensures the image covers the entire container */
+  border-radius: 25px;
+  box-sizing: content-box;
 }
 
 .discount-tag {
@@ -101,6 +119,7 @@ body {
   top: 10px;
   text-transform: capitalize;
 }
+
 
 /* .card-btn {
   position: absolute;
@@ -135,8 +154,12 @@ body {
     text-transform: uppercase;
     font-family: LatoBold!important;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 
+}
 
+.card-btn:hover {
+  background-color: #1c8c92; 
 }
 
 .product-info {
@@ -176,17 +199,21 @@ body {
 .pre-btn,
 .nxt-btn {
   border: none;
-  width: 4vw;
-  height: 67%;
+  width: 40px;
+  height: 40px;
   position: absolute;
-  top: 17%;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  background:transparent;
-  /* background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #fff 100%); */
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 24px;
+  border-radius: 50%;
   cursor: pointer;
-  z-index: 8;
+  z-index: 2;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .pre-btn:focus{
@@ -213,9 +240,14 @@ body {
   opacity: 0.2;
 }
 
-.pre-btn:hover img,
-.nxt-btn:hover img {
-  opacity: 1;
+.pre-btn:hover,
+.nxt-btn:hover {
+  background-color: rgba(14, 142, 233, 0.8);
+}
+
+.pre-btn img,
+.nxt-btn img {
+  opacity: 0.7;
 }
 
 .product-brand {
@@ -268,36 +300,53 @@ body {
   font-size: 40px;
   font-weight: normal;
 }
-table,
-td {
-  border-right: 1px groove grey;
-  background-color: white;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  color: rgb(19, 17, 17);
-}
-td:hover {
-  color: rgb(50, 174, 177);
-}
-
+/* Style for the entire table */
 table {
   width: 100%;
-  height: 40px;
-  border: 1px solid;
-}
-a:link{
-  color:black;
-}
-/* unvisited link */
-/* visited link */
-a:visited {
-  color: black;
+  border-collapse: collapse; /* Remove cell spacing */
+  margin-bottom: 20px; /* Add some spacing below the table */
+  border: 2px solid #24aeb1; /* Add a border with a color of your choice */
+  border-radius: 10px; /* Add rounded corners */
+  overflow: hidden; /* Hide any content that goes beyond the table */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  background-color: #fff; /* Background color for the table */
 }
 
-/* mouse over link */
+/* Style for table headers */
+th {
+  background-color: #24aeb1; /* Header background color */
+  color: #fff; /* Header text color */
+  font-weight: bold; /* Bold font for headers */
+  text-align: center; /* Center-align header text */
+  padding: 10px; /* Add padding to headers for spacing */
+}
+
+/* Style for table cells */
+td {
+  border-right: 1px solid #ccc; /* Add a border between cells */
+  padding: 10px; /* Add padding to cells for spacing */
+  text-align: center; /* Center-align cell text */
+  font-size: 16px; /* Font size for cell text */
+  color: #333; /* Cell text color */
+}
+
+/* Hover effect for table rows */
+tr:hover {
+  background-color: #f3f7fb; /* Background color on hover */
+}
+
+/* Style for table links */
+a:link,
+a:visited {
+  color: #24aeb1; /* Link color */
+  text-decoration: none; /* Remove underlines from links */
+  font-weight: bold; /* Bold font for links */
+}
+
+/* Hover effect for table links */
 a:hover {
-  color: skyblue;
+  color: #1c8c92; /* Link color on hover */
+  text-decoration: underline; /* Add underline on hover */
 }
 
 /* selected link */
@@ -317,4 +366,58 @@ a:active {
 #info {
   margin-left: 3%;
   margin-right: 5%;
+}
+
+@media (max-width: 768px) {
+  /* Adjust styles for smaller screens */
+  .product-category {
+    font-size: 30px;
+  }
+  
+  .product-container {
+    padding: 5px;
+    gap: 10px;
+  }
+  
+  
+}
+
+/* Style the cart button */
+.cart {
+  margin: 10px 30px;
+  width: 80%;
+  background-color: #32aeb1;
+  color: #fff; /* Text color */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Add padding to the button */
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer; /* Add a pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  font: weight 100px;; /* Bold text */
+  transition: background-color 0.3s ease, transform 0.2s ease-in-out; /* Add smooth transitions */
+}
+
+/* Change button color on hover */
+.cart:hover {
+  background-color: #1c8c92; /* New background color on hover */
+  transform: scale(1.05); /* Add a scale effect on hover */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow on hover */
+}
+
+/* Add a pulse animation on button click */
+.cart:active {
+  animation: pulse 0.3s ease infinite; /* Use the pulse animation on button click */
+}
+
+/* Define the pulse animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
