@@ -156,12 +156,27 @@ app.delete('/deleteitem', async (req, res) => {
 // Completed succesful  signup to ajax 
 app.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
+  const validationErrors = [];
+  if (name.length < 5) {
+    validationErrors.push("Name should be at least 5 characters");
+  }
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/;
+  if (!passwordRegex.test(password)) {
+    validationErrors.push("Password should contain one capital letter and a special character");
+  }
+  const emailRegex = /@/;
+  if (!emailRegex.test(email)) {
+    validationErrors.push("Invalid email format");
+  }
 
+  if (validationErrors.length > 0) {
+    return res.status(200).json({ validationErrors });
+  }
   try {
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return res.status(400).json({ error: "User already exists" });
+      validationErrors.push("User already Exists");
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -185,19 +200,32 @@ app.post("/signup", async (req, res) => {
   }
 });
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password} = req.body;
+  const validationErrors = [];
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).+$/;
+  if (!passwordRegex.test(password)) {
+    validationErrors.push("Invalid password");
+  }
+  const emailRegex = /@/;
+  if (!emailRegex.test(email)) {
+    validationErrors.push("Invalid email format");
+  }
+
+  if (validationErrors.length > 0) {
+    return res.status(200).json({ validationErrors });
+  }
 
   try {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      validationErrors.push('User not found');
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
-      return res.status(401).json({ error: "Invalid credentials" });
+      validationErrors.push('Wrong password');
     }
     const authToken = jwt.sign({ userId: user._id }, JWT_sceret);
 
@@ -1112,15 +1140,10 @@ app.get("/Doctorsportal", function (req, res) {
 
 app.post('/doctorlogin', async (req, res) => {
   const data = {
-    Name: req.body.Name,
-    mail: req.body.Email,
-    date_of_birth: req.body.DOB,
-    City: req.body.City,
-    Country: req.body.Country,
+    Name: req.body.fullname,
+    mail: req.body.email,
+    date_of_birth: req.body.date,
     password: req.body.password,
-    Language: req.body.Language,
-    Medical_school: req.body.MedSch,
-    MedicalId: req.body.MedID,
     Specility: req.body.Specility
   }
 
@@ -1169,10 +1192,12 @@ app.post("/Doctorsportal", function (req, res) {
 
           res.render("Doctorsportal", { user: use, patient: k });
         } else {
-          res.status(400).json({ error: "password doesn't match" });
+          // res.status(400).json({ error: "password doesn't match" });
+          res.render("Doctorlogin");
         }
       } else {
-        res.status(400).json({ error: "User doesn't exist,signup please!" });
+        // res.status(400).json({ error: "User doesn't exist,signup please!" });
+        res.render("Doctorlogin");
       }
     })
 
